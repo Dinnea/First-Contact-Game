@@ -2,12 +2,23 @@ public static SceneStart start;
 public static Scene activeScene;
 public static SceneBasement_1 basement_1;
 public static SceneBasement_2 basement_2;
+public static Bookshelf_Top bookshelfTop;
+public static Bookshelf_Bot bookshelfBot;
+public static Chest chest;
+public static Portrait portrait;
+public static Album album;
+
 
 void setup() {
   size(1000, 800);
   start = new SceneStart();
   basement_1 = new SceneBasement_1();
   basement_2 = new SceneBasement_2();
+  bookshelfTop = new Bookshelf_Top();
+  bookshelfBot = new Bookshelf_Bot();
+  chest = new Chest();
+  portrait = new Portrait();
+  album = new Album();
   activeScene = start;
 }
 
@@ -42,6 +53,21 @@ public static void ChangeScene(String newScene) {
     break;
   case "Basement 2":
     activeScene = basement_2;
+    break;
+  case "Bookshelf Top":
+    activeScene = bookshelfTop;
+    break;
+  case "Bookshelf Bottom":
+    activeScene = bookshelfBot;
+    break;
+  case "Chest":
+    activeScene = chest;
+    break;
+  case "Portrait":
+    activeScene = portrait;
+    break;
+  case "Photo Album":
+    activeScene = album;
     break;
   }
 }
