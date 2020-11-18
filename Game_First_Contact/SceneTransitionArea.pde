@@ -7,9 +7,10 @@ class SceneTransitionArea {
   float areaWidth;
   float areaHeight;
   
-  public SceneTransitionArea(String newDesination,
+  public SceneTransitionArea(String newDestination,
                              float newX, float newY,
                              float newWidth, float newHeight){
+    destinationScene = newDestination;
     x = newX;
     y = newY;
     areaWidth = newWidth;
