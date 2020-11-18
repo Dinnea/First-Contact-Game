@@ -1,5 +1,6 @@
 void setup(){
   size(1000, 800);
+  
 }
 
 //Check for collision between a single point and a rectangle/box
