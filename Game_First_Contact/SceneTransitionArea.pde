@@ -1,4 +1,4 @@
-class SceneTransitionArea{
+class SceneTransitionArea {
   
   String destinationScene;
   
@@ -15,5 +15,4 @@ class SceneTransitionArea{
     areaWidth = newWidth;
     areaHeight = newHeight;
   }
-  
 }

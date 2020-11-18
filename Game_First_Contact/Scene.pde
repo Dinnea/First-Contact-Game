@@ -64,7 +64,7 @@ class Scene { // mostly code made by Dylan
                                                         transitionAreas[i].x,
                                                         transitionAreas[i].y,
                                                         transitionAreas[i].areaWidth,
-                                                        transitionAreas[i].areaheight){
+                                                        transitionAreas[i].areaHeight)){
            //change scene if transition was clicked
            Game_First_Contact.ChangeScene(transitionAreas[i].destinationScene);
           }
@@ -82,7 +82,7 @@ class Scene { // mostly code made by Dylan
                                                         transitionAreas[i].x,
                                                         transitionAreas[i].y,
                                                         transitionAreas[i].areaWidth,
-                                                        transitionAreas[i].areaheight){
+                                                        transitionAreas[i].areaHeight)){
            // if yes, change cursor and stop checking
            cursor(HAND);
            return;
@@ -97,7 +97,7 @@ class Scene { // mostly code made by Dylan
                                                           transitionAreas[i].x,
                                                           transitionAreas[i].y,
                                                           transitionAreas[i].areaWidth,
-                                                          transitionAreas[i].areaHeight){
+                                                          transitionAreas[i].areaHeight)){
              // if yes, change cursor and stop checking
              cursor(HAND);
              return;
