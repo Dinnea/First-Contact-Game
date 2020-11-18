@@ -97,7 +97,7 @@ class Scene { // mostly code made by Dylan
                                                           transitionAreas[i].x,
                                                           transitionAreas[i].y,
                                                           transitionAreas[i].areaWidth,
-                                                          transitionAreas[i].areaheight){
+                                                          transitionAreas[i].areaHeight){
              // if yes, change cursor and stop checking
              cursor(HAND);
              return;
