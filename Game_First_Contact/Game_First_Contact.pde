@@ -7,7 +7,9 @@ public static Bookshelf_Bot bookshelfBot;
 public static Chest chest;
 public static Portrait portrait;
 public static Album album;
+boolean inventoryDis = false;
 
+public static ArrayList <InteractiveObject> inventory = new ArrayList<InteractiveObject>();
 
 void setup() {
   size(1000, 800);
@@ -26,6 +28,12 @@ void draw() {
   //draw the actice scene
   activeScene.Draw();
   activeScene.MouseHover();
+  
+  //display the inventory
+  
+  if (inventoryDis){
+    inventoryDisplay();
+  }
 }
 
 void mouseClicked() {
@@ -44,6 +52,41 @@ public static boolean CheckPointOnBoxCollision(float pointX, float pointY,
   }
 
   return false;
+}
+
+void mousePressed(){
+  if(inventory != null){
+        for (int i = 0; i<inventory.size(); i++){
+           //mouse hovers over?
+          if (Game_First_Contact.CheckPointOnBoxCollision(mouseX, mouseY, 
+                                                          90+(150*i),
+                                                          700,
+                                                          inventory.get(i).areaWidth,
+                                                          inventory.get(i).areaHeight)){
+             // if yes, change cursor and stop checking
+             cursor(inventory.get(i).objectImage);
+             return;
+          }
+        }
+  }
+  
+}
+
+void mouseReleased(){
+  
+}
+
+void keyPressed(){
+  if (key == 'b'){
+    if (inventoryDis == false){
+      inventoryDis = true;
+    }
+    else if(inventoryDis == true){
+      inventoryDis = false;
+      
+      
+    }
+  }
 }
 
 public static void ChangeScene(String newScene) {
@@ -69,5 +112,27 @@ public static void ChangeScene(String newScene) {
   case "Photo Album":
     activeScene = album;
     break;
+  }
+}
+
+void inventoryDisplay(){
+  fill(255, 0, 0);
+  rect(0, 600, width, 200);
+  //show items
+  for (int i = 0; i<inventory.size(); i++){
+    image(inventory.get(i).objectImage, 90+(150*i), 700);
+  }
+  if(inventory != null){
+        for (int i = 0; i<inventory.size(); i++){
+           //mouse hovers over?
+          if (CheckPointOnBoxCollision(mouseX, mouseY, 
+                                       90+(150*i), 700,
+                                       inventory.get(i).areaWidth,
+                                       inventory.get(i).areaHeight)){
+             // if yes, change cursor and stop checking
+             cursor(HAND);
+             return;
+          }
+        }  
   }
 }

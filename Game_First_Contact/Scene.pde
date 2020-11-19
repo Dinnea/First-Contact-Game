@@ -5,7 +5,8 @@ class Scene { // mostly code made by Dylan
   public PImage background_Image;
   public String scene_Name;
   public SceneTransitionArea[] transitionAreas; //list of transition areas
-  public InteractiveObject[] objects; //list of objects that are interactive (added by Izabella)
+  public ArrayList<InteractiveObject>interactiveObjects = new ArrayList<InteractiveObject>();
+ // public InteractiveObject[] interactiveObjects;//list of objects that are interactive (added by Izabella)
   
   //scene constructor
   public Scene(String background_File, String newSceneName){
@@ -41,18 +42,26 @@ class Scene { // mostly code made by Dylan
         rect(transitionAreas[i].x, transitionAreas[i].y, transitionAreas[i].areaWidth, transitionAreas[i].areaHeight);
       }
     }
-    //added by Izabella test interactive items
+    //array list
+   //display objects
+  if (interactiveObjects != null){
+    for(int i = 0; i<interactiveObjects.size(); i++){
+      image(interactiveObjects.get(i).objectImage, interactiveObjects.get(i).x, interactiveObjects.get(i).y);
+    }
+  }
     fill (255, 0, 0, 150);
     noStroke();
     //are there interactive objects?
-    if (objects != null){
+    if (interactiveObjects != null){
       //every object
-      for (int i = 0; i<objects.length; i++){
+      for (int i = 0; i<interactiveObjects.size(); i++){
         //rect overlay
-        rect(objects[i].x, objects[i].y, objects[i].areaWidth, objects[i].areaHeight);
+        rect(interactiveObjects.get(i).x, interactiveObjects.get(i).y, interactiveObjects.get(i).areaWidth, interactiveObjects.get(i).areaHeight);
       }
-    }
-  }
+    } 
+    
+  }  
+  
   
   public void MouseClicked(){
     //are there transitions?
@@ -68,6 +77,24 @@ class Scene { // mostly code made by Dylan
            //change scene if transition was clicked
            Game_First_Contact.ChangeScene(transitionAreas[i].destinationScene);
           }
+      }
+    }
+    if (interactiveObjects != null){
+      for (int i = 0; i< interactiveObjects.size(); i++){
+        //click???
+        if (Game_First_Contact.CheckPointOnBoxCollision(mouseX, mouseY, //check for collision and if pickable
+                                                        interactiveObjects.get(i).x,
+                                                        interactiveObjects.get(i).y,
+                                                        interactiveObjects.get(i).areaWidth,
+                                                        interactiveObjects.get(i).areaHeight)
+                                                        &&(interactiveObjects.get(i).pickUp)){
+                                                         
+           inventory.add(interactiveObjects.get(i)); //add to inventory
+           interactiveObjects.remove(i); //remove the object from enviroment
+           
+                 
+          
+        }                                                  
       }
     }
   }
@@ -90,14 +117,14 @@ class Scene { // mostly code made by Dylan
       }
       //object checking added by Izabella
       //are there objects?
-      if(objects != null){
-        for (int i = 0; i<objects.length; i++){
+      if(interactiveObjects != null){
+        for (int i = 0; i<interactiveObjects.size(); i++){
            //mouse hovers over?
           if (Game_First_Contact.CheckPointOnBoxCollision(mouseX, mouseY, 
-                                                          transitionAreas[i].x,
-                                                          transitionAreas[i].y,
-                                                          transitionAreas[i].areaWidth,
-                                                          transitionAreas[i].areaHeight)){
+                                                          interactiveObjects.get(i).x,
+                                                          interactiveObjects.get(i).y,
+                                                          interactiveObjects.get(i).areaWidth,
+                                                          interactiveObjects.get(i).areaHeight)){
              // if yes, change cursor and stop checking
              cursor(HAND);
              return;

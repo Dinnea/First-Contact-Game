@@ -7,7 +7,11 @@ class SceneBasement_1 extends Scene {
       new SceneTransitionArea("Portrait", 570, 35, 190, 300),
       new SceneTransitionArea("Chest", 867, 290, 133, 350)
     };
-  }
+    interactiveObjects.add(new InteractiveObject(200, 200, 50, 50,"placeholder.png", true));
+    //interactiveObjects = new InteractiveObject[]{
+    //  new InteractiveObject(200, 200, 50, 50, "placeholder.png", true)
+    //};
+   }
 }
 
 class Chest extends Scene{
