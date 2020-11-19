@@ -11,6 +11,11 @@ boolean inventoryDis = false;
 
 public static ArrayList <InteractiveObject> inventory = new ArrayList<InteractiveObject>();
 
+//Is a dialogue box active?
+public static boolean dialogueActive = false;
+//Dialogue to play.
+public static Dialogue activeDialogue;
+
 void setup() {
   size(1000, 800);
   start = new SceneStart();
@@ -27,17 +32,35 @@ void setup() {
 void draw() {
   //draw the actice scene
   activeScene.Draw();
-  activeScene.MouseHover();
-  
+
+  //If there is an active dialogue box
+  if (dialogueActive) {
+    //Draw the dialogue
+    activeDialogue.Draw();
+
+    //Check for mouse hover in the dialogue
+    activeDialogue.MouseHover();
+  } else {
+    //Check for mouse hover in the scene
+    activeScene.MouseHover();
+  }
+
   //display the inventory
-  
-  if (inventoryDis){
+
+  if (inventoryDis) {
     inventoryDisplay();
   }
 }
 
 void mouseClicked() {
-  activeScene.MouseClicked();
+  if (dialogueActive) {
+    //Click in the dialogue box
+    activeDialogue.MouseClicked();
+  } //If there is no dialogue box active
+  else {
+    //Click inside the scene
+    activeScene.MouseClicked();
+  }
 }
 
 //Check for collision between a single point and a rectangle/box
@@ -54,37 +77,32 @@ public static boolean CheckPointOnBoxCollision(float pointX, float pointY,
   return false;
 }
 
-void mousePressed(){
-  if(inventory != null){
-        for (int i = 0; i<inventory.size(); i++){
-           //mouse hovers over?
-          if (Game_First_Contact.CheckPointOnBoxCollision(mouseX, mouseY, 
-                                                          90+(150*i),
-                                                          700,
-                                                          inventory.get(i).areaWidth,
-                                                          inventory.get(i).areaHeight)){
-             // if yes, change cursor and stop checking
-             cursor(inventory.get(i).objectImage);
-             return;
-          }
-        }
-  }
-  
-}
-
-void mouseReleased(){
-  
-}
-
-void keyPressed(){
-  if (key == 'b'){
-    if (inventoryDis == false){
-      inventoryDis = true;
+void mousePressed() {
+  if (inventory != null) {
+    for (int i = 0; i<inventory.size(); i++) {
+      //mouse hovers over?
+      if (Game_First_Contact.CheckPointOnBoxCollision(mouseX, mouseY, 
+        90+(150*i), 
+        700, 
+        inventory.get(i).areaWidth, 
+        inventory.get(i).areaHeight)) {
+        // if yes, change cursor and stop checking
+        cursor(inventory.get(i).objectImage);
+        return;
+      }
     }
-    else if(inventoryDis == true){
+  }
+}
+
+void mouseReleased() {
+}
+
+void keyPressed() {
+  if (key == 'b') {
+    if (inventoryDis == false) {
+      inventoryDis = true;
+    } else if (inventoryDis == true) {
       inventoryDis = false;
-      
-      
     }
   }
 }
@@ -115,24 +133,24 @@ public static void ChangeScene(String newScene) {
   }
 }
 
-void inventoryDisplay(){
+void inventoryDisplay() {
   fill(255, 0, 0);
   rect(0, 600, width, 200);
   //show items
-  for (int i = 0; i<inventory.size(); i++){
+  for (int i = 0; i<inventory.size(); i++) {
     image(inventory.get(i).objectImage, 90+(150*i), 700);
   }
-  if(inventory != null){
-        for (int i = 0; i<inventory.size(); i++){
-           //mouse hovers over?
-          if (CheckPointOnBoxCollision(mouseX, mouseY, 
-                                       90+(150*i), 700,
-                                       inventory.get(i).areaWidth,
-                                       inventory.get(i).areaHeight)){
-             // if yes, change cursor and stop checking
-             cursor(HAND);
-             return;
-          }
-        }  
+  if (inventory != null) {
+    for (int i = 0; i<inventory.size(); i++) {
+      //mouse hovers over?
+      if (CheckPointOnBoxCollision(mouseX, mouseY, 
+        90+(150*i), 700, 
+        inventory.get(i).areaWidth, 
+        inventory.get(i).areaHeight)) {
+        // if yes, change cursor and stop checking
+        cursor(HAND);
+        return;
+      }
+    }
   }
 }
