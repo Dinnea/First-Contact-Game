@@ -13,7 +13,7 @@ class Dialogue {
 
   public void Draw() {
     //Draw the dialogue box
-    fill(255, 0, 0, 200);
+    fill(255, 0, 255, 200);
     rect(0, height - 150, width, 150);
     fill(255, 255, 255);
     textAlign(CENTER, TOP);
