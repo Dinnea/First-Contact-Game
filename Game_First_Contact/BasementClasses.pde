@@ -48,6 +48,9 @@ class Chest extends Scene {
 
 class Portrait extends Scene {
   boolean puzzleSolved = false;
+  boolean keyPickedUp = false;
+
+  private InteractiveObject itemKey = new InteractiveObject(432, 338, 100, 100, "placeholder.png", true, "Chest Key");
 
   private InventoryItem[] placedPictures = new InventoryItem[4];
   private InteractiveDialogue[] pictureFrames;
@@ -98,11 +101,15 @@ class Portrait extends Scene {
         image(placedPictures[i].objectImage, pictureFrames[i].x, pictureFrames[i].y, pictureFrames[i].areaWidth, pictureFrames[i].areaHeight);
       }
     }
+
+    if (puzzleSolved && !keyPickedUp) {
+      image(itemKey.item.objectImage, itemKey.x, itemKey.y, itemKey.areaWidth, itemKey.areaHeight);
+    }
   }
 
   public void MouseHover() {   
     boolean hovered = false;
-    
+
     if (!puzzleSolved) {
       //Check if the portrait was hovered over
       if (Game_First_Contact.CheckPointOnBoxCollision(mouseX, mouseY, portraitDialogue.x, portraitDialogue.y, portraitDialogue.areaWidth, portraitDialogue.areaHeight)) {
@@ -113,8 +120,12 @@ class Portrait extends Scene {
       for (int i = 0; i < pictureFrames.length; i++) {
         //If the user hovered over the picture frame
         if (Game_First_Contact.CheckPointOnBoxCollision(mouseX, mouseY, pictureFrames[i].x, pictureFrames[i].y, pictureFrames[i].areaWidth, pictureFrames[i].areaHeight)) {
-        hovered = true;
+          hovered = true;
         }
+      }
+    } else if (puzzleSolved && !keyPickedUp) {
+      if (Game_First_Contact.CheckPointOnBoxCollision(mouseX, mouseY, itemKey.x, itemKey.y, itemKey.areaWidth, itemKey.areaHeight)) {
+        hovered = true;
       }
     }
 
@@ -212,6 +223,15 @@ class Portrait extends Scene {
               background_Image = loadImage("portrait faded.png");
             }
           }
+        }
+      }
+    }
+    else if(puzzleSolved)
+    {
+      if(!keyPickedUp){
+        if (Game_First_Contact.CheckPointOnBoxCollision(mouseX, mouseY, itemKey.x, itemKey.y, itemKey.areaWidth, itemKey.areaHeight)){
+          keyPickedUp = true;
+          Game_First_Contact.inventory.add(itemKey.item);
         }
       }
     }
