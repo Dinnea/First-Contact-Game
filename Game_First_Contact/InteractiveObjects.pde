@@ -1,24 +1,22 @@
-class InteractiveObject{
-  
-  public PImage objectImage;
+class InteractiveObject {
+
+  InventoryItem item;
   float x;
   float y;
   int areaWidth;
   int areaHeight;
   boolean pickUp;
   //public String objectFileA;
-  
-  public InteractiveObject (float newX, float newY,
-                            int newWidth, int newHeight, 
-                            String objectFile, boolean canPickUp){
-                              
-    //objectFileA = objectFile;
-    objectImage = loadImage(objectFile);
+
+  public InteractiveObject (float newX, float newY, 
+    int newWidth, int newHeight, 
+    String objectFile, boolean canPickUp, String newName) {
+    item = new InventoryItem(objectFile, newName);
     x = newX;
     y = newY;
     areaWidth = newWidth;
     areaHeight = newHeight;
-    objectImage.resize(areaWidth, areaHeight);
+    item.objectImage.resize(areaWidth, areaHeight);
     pickUp = canPickUp;
   }
 }

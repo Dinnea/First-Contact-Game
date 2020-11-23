@@ -1,4 +1,4 @@
-class Scene { // mostly code made by Dylan
+class Scene { // mostly code made by Dylan //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
 
   //scene info
 
@@ -8,9 +8,10 @@ class Scene { // mostly code made by Dylan
   public ArrayList<InteractiveObject>interactiveObjects = new ArrayList<InteractiveObject>();
   // public InteractiveObject[] interactiveObjects;//list of objects that are interactive (added by Izabella)
   public InteractiveDialogue[] dialogueObjects;//list of objects that start dialogue
+  public boolean allowInventory;
 
   //scene constructor
-  public Scene(String background_File, String newSceneName) {
+  public Scene(String background_File, String newSceneName, boolean newAllowInventory) {
 
     //load backgriun image from a file
     background_Image = loadImage(background_File);
@@ -20,6 +21,8 @@ class Scene { // mostly code made by Dylan
 
     //set scene name
     scene_Name = newSceneName;
+
+    allowInventory = newAllowInventory;
   }
 
   //draw the scene
@@ -60,7 +63,7 @@ class Scene { // mostly code made by Dylan
     //display objects
     if (interactiveObjects != null) {
       for (int i = 0; i<interactiveObjects.size(); i++) {
-        image(interactiveObjects.get(i).objectImage, interactiveObjects.get(i).x, interactiveObjects.get(i).y);
+        image(interactiveObjects.get(i).item.objectImage, interactiveObjects.get(i).x, interactiveObjects.get(i).y);
       }
     }
 
@@ -103,7 +106,7 @@ class Scene { // mostly code made by Dylan
           interactiveObjects.get(i).areaHeight)
           &&(interactiveObjects.get(i).pickUp)) {
 
-          inventory.add(interactiveObjects.get(i)); //add to inventory
+          inventory.add(interactiveObjects.get(i).item); //add to inventory
           interactiveObjects.remove(i); //remove the object from enviroment
         }
       }
@@ -120,7 +123,7 @@ class Scene { // mostly code made by Dylan
           dialogueObjects[i].areaWidth, 
           dialogueObjects[i].areaHeight)) {
           //play the dialogue
-          dialogueObjects[i].Play();
+          dialogueObjects[i].dialogueToDisplay.Play();
         }
       }
     }
@@ -142,41 +145,46 @@ class Scene { // mostly code made by Dylan
           return;
         }
       }
+    }
 
-      //are there dialogue objects?
-      if (dialogueObjects != null) {
-        //for every dialogue object
-        for (int i = 0; i < dialogueObjects.length; i++) {
-          if (Game_First_Contact.CheckPointOnBoxCollision(mouseX, mouseY, 
-            dialogueObjects[i].x, 
-            dialogueObjects[i].y, 
-            dialogueObjects[i].areaWidth, 
-            dialogueObjects[i].areaHeight)) {
-            //change the cursor and stop checking
-            cursor(HAND);
-            return;
-          }
-        }
-      }
-
-      //object checking added by Izabella
-      //are there objects?
-      if (interactiveObjects != null) {
-        for (int i = 0; i<interactiveObjects.size(); i++) {
-          //mouse hovers over?
-          if (Game_First_Contact.CheckPointOnBoxCollision(mouseX, mouseY, 
-            interactiveObjects.get(i).x, 
-            interactiveObjects.get(i).y, 
-            interactiveObjects.get(i).areaWidth, 
-            interactiveObjects.get(i).areaHeight)) {
-            // if yes, change cursor and stop checking
-            cursor(HAND);
-            return;
-          }
+    //are there dialogue objects?
+    if (dialogueObjects != null) {
+      //for every dialogue object
+      for (int i = 0; i < dialogueObjects.length; i++) {
+        if (Game_First_Contact.CheckPointOnBoxCollision(mouseX, mouseY, 
+          dialogueObjects[i].x, 
+          dialogueObjects[i].y, 
+          dialogueObjects[i].areaWidth, 
+          dialogueObjects[i].areaHeight)) {
+          //change the cursor and stop checking
+          cursor(HAND);
+          return;
         }
       }
     }
-    //if not on transition area or interactive object, the cursor is an arrow
+
+    //object checking added by Izabella
+    //are there objects?
+    if (interactiveObjects != null) {
+      for (int i = 0; i<interactiveObjects.size(); i++) {
+        //mouse hovers over?
+        if (Game_First_Contact.CheckPointOnBoxCollision(mouseX, mouseY, 
+          interactiveObjects.get(i).x, 
+          interactiveObjects.get(i).y, 
+          interactiveObjects.get(i).areaWidth, 
+          interactiveObjects.get(i).areaHeight)) {
+          // if yes, change cursor and stop checking
+          cursor(HAND);
+          return;
+        }
+      }
+    } 
+
+    //if not on transition area or interactive object && the player isn't dragging an item, the cursor is an arrow
     cursor(ARROW);
+  }
+
+  public void MouseReleased() {
+    return;
   }
 }

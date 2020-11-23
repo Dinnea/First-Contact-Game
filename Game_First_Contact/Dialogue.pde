@@ -32,6 +32,9 @@ class Dialogue {
 
         //Reset the dialogueLine
         currentDialogueLine = 0;
+
+        //Unhide the inventory (If the scene allows it)
+        Game_First_Contact.displayInventory = Game_First_Contact.activeScene.allowInventory;
       } //Else go to the next line
       else {
         currentDialogueLine++;
@@ -46,5 +49,11 @@ class Dialogue {
     } else {
       cursor(ARROW);
     }
+  }
+
+  public void Play() {
+    Game_First_Contact.activeDialogue = this;
+    Game_First_Contact.dialogueActive = true;
+    Game_First_Contact.displayInventory = false;
   }
 }

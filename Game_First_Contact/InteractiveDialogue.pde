@@ -13,9 +13,4 @@ class InteractiveDialogue {
     areaHeight = newHeight;
     dialogueToDisplay = newDialogue;
   }
-
-  public void Play() {
-    Game_First_Contact.activeDialogue = dialogueToDisplay;
-    Game_First_Contact.dialogueActive = true;
-  }
 }

@@ -7,9 +7,10 @@ public static Bookshelf_Bot bookshelfBot;
 public static Chest chest;
 public static Portrait portrait;
 public static Album album;
-boolean inventoryDis = false;
+public static boolean displayInventory;
+public static InventoryItem selectedItem;
 
-public static ArrayList <InteractiveObject> inventory = new ArrayList<InteractiveObject>();
+public static ArrayList <InventoryItem> inventory = new ArrayList<InventoryItem>();
 
 //Is a dialogue box active?
 public static boolean dialogueActive = false;
@@ -26,7 +27,7 @@ void setup() {
   chest = new Chest();
   portrait = new Portrait();
   album = new Album();
-  activeScene = start;
+  ChangeScene("Start");
 }
 
 void draw() {
@@ -47,7 +48,7 @@ void draw() {
 
   //display the inventory
 
-  if (inventoryDis) {
+  if (displayInventory) {
     inventoryDisplay();
   }
 }
@@ -78,16 +79,18 @@ public static boolean CheckPointOnBoxCollision(float pointX, float pointY,
 }
 
 void mousePressed() {
-  if (inventory != null) {
+  if (inventory != null && displayInventory) {
     for (int i = 0; i<inventory.size(); i++) {
       //mouse hovers over?
-      if (Game_First_Contact.CheckPointOnBoxCollision(mouseX, mouseY, 
-        90+(150*i), 
-        700, 
-        inventory.get(i).areaWidth, 
-        inventory.get(i).areaHeight)) {
-        // if yes, change cursor and stop checking
-        cursor(inventory.get(i).objectImage);
+      if (CheckPointOnBoxCollision(mouseX, mouseY, 
+        13, 
+        230+(95*i), 
+        50, 
+        50)) {
+        // if yes, change cursor
+        selectedItem = inventory.get(i);
+
+
         return;
       }
     }
@@ -97,18 +100,12 @@ void mousePressed() {
 void mouseReleased() {
 }
 
-void keyPressed() {
-  if (key == 'b') {
-    if (inventoryDis == false) {
-      inventoryDis = true;
-    } else if (inventoryDis == true) {
-      inventoryDis = false;
-    }
-  }
-}
-
 public static void ChangeScene(String newScene) {
+  //Switch to the requested scene
   switch(newScene) {
+  case "Start":
+    activeScene = start;
+    break;
   case "Basement 1":
     activeScene = basement_1;
     break;
@@ -131,26 +128,44 @@ public static void ChangeScene(String newScene) {
     activeScene = album;
     break;
   }
+
+  displayInventory = activeScene.allowInventory;
 }
 
 void inventoryDisplay() {
   fill(255, 255, 0);
-  rect(0, 600, width, 200);
+  rect(0, 200, 75, height - 400);
+
   //show items
   for (int i = 0; i<inventory.size(); i++) {
-    image(inventory.get(i).objectImage, 90+(150*i), 700);
+    if (selectedItem != null && inventory.get(i) == selectedItem) {
+      fill(255, 0, 0);
+      rect(10, 227+(95*i), 56, 56);
+    }
+    image(inventory.get(i).objectImage, 13, 230+(95*i), 50, 50);
   }
+
   if (inventory != null) {
     for (int i = 0; i<inventory.size(); i++) {
-      //mouse hovers over?
+      //mouse hovers over && not dragging an item?
       if (CheckPointOnBoxCollision(mouseX, mouseY, 
-        90+(150*i), 700, 
-        inventory.get(i).areaWidth, 
-        inventory.get(i).areaHeight)) {
+        13, 
+        230+(95*i), 
+        50, 
+        50)) {
         // if yes, change cursor and stop checking
         cursor(HAND);
         return;
       }
+    }
+  }
+}
+
+static void UseItem() {
+  for (int i = 0; i < inventory.size(); i++) {
+    if (selectedItem != null && inventory.get(i) == selectedItem) {
+      inventory.remove(i);
+      selectedItem = null;
     }
   }
 }
