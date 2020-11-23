@@ -93,8 +93,15 @@ void mousePressed() {
 
         return;
       }
+
     }
+  //      // if yes, change cursor and stop checking
+  //      cursor(inventory.get(i).objectImage);
+  //      return;
+  //    }
+  //  }
   }
+  
 }
 
 void mouseReleased() {
