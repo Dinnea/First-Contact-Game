@@ -78,7 +78,6 @@ public static boolean CheckPointOnBoxCollision(float pointX, float pointY,
 }
 
 void mousePressed() {
-  if (inventory != null) {
     for (int i = 0; i<inventory.size(); i++) {
       //mouse hovers over?
       if (Game_First_Contact.CheckPointOnBoxCollision(mouseX, mouseY, 
@@ -86,12 +85,17 @@ void mousePressed() {
         700, 
         inventory.get(i).areaWidth, 
         inventory.get(i).areaHeight)) {
-        // if yes, change cursor and stop checking
-        cursor(inventory.get(i).objectImage);
-        return;
-      }
+          inventory.get(i).x = mouseX;
+          inventory.get(i).y = mouseY;
+        }
     }
-  }
+  //      // if yes, change cursor and stop checking
+  //      cursor(inventory.get(i).objectImage);
+  //      return;
+  //    }
+  //  }
+  //}
+  
 }
 
 void mouseReleased() {
