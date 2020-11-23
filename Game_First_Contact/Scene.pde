@@ -34,7 +34,7 @@ class Scene { // mostly code made by Dylan
     text(scene_Name, width/2, 10);
 
     //overlay to test transition scenes
-    fill(0, 255, 0, 150);
+    fill(0, 255, 0, 100);
     noStroke();
     if (transitionAreas != null) {
       //For every Transition Area...
@@ -45,7 +45,7 @@ class Scene { // mostly code made by Dylan
     }
 
     //overlay to test dialogue objects
-    fill(0, 0, 255, 150);
+    fill(0, 0, 255, 100);
     noStroke();
     if (dialogueObjects != null) {
       //For every dialogue object
@@ -63,7 +63,8 @@ class Scene { // mostly code made by Dylan
         image(interactiveObjects.get(i).objectImage, interactiveObjects.get(i).x, interactiveObjects.get(i).y);
       }
     }
-    fill (255, 0, 0, 150);
+
+    fill (255, 0, 0, 100);
     noStroke();
     //are there interactive objects?
     if (interactiveObjects != null) {

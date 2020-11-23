@@ -138,7 +138,7 @@ public static void ChangeScene(String newScene) {
 }
 
 void inventoryDisplay() {
-  fill(255, 0, 0);
+  fill(255, 255, 0);
   rect(0, 600, width, 200);
   //show items
   for (int i = 0; i<inventory.size(); i++) {
