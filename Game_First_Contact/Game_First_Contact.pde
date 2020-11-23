@@ -1,3 +1,4 @@
+//create basement rooms
 public static SceneStart start;
 public static Scene activeScene;
 public static SceneBasement_1 basement_1;
@@ -7,6 +8,20 @@ public static Bookshelf_Bot bookshelfBot;
 public static Chest chest;
 public static Portrait portrait;
 public static Album album;
+
+//create bedroom rooms
+public static Closet closet;
+public static Bedroom1 bedroom1;
+public static Bedroom2 bedroom2;
+public static Diary diary;
+public static DiaryPage diaryPage;
+public static DoorLock doorLock;
+
+//create hallways
+public static Hallway1 hallway1;
+public static Hallway2 hallway2;
+
+//create inventory
 public static boolean displayInventory;
 public static InventoryItem selectedItem;
 
@@ -27,6 +42,14 @@ void setup() {
   chest = new Chest();
   portrait = new Portrait();
   album = new Album();
+  closet = new Closet();
+  bedroom1 = new Bedroom1();
+  bedroom2 = new Bedroom2();
+  diary = new Diary();
+  diaryPage = new DiaryPage();
+  doorLock = new DoorLock();
+  hallway1 = new Hallway1();
+  hallway2 = new Hallway2();
   ChangeScene("Start");
 }
 
@@ -128,12 +151,40 @@ public static void ChangeScene(String newScene) {
   case "Chest":
     activeScene = chest;
     break;
+  //case "Chest Open":
+  //  activeScene = chestOpen;
+  //  break;
   case "Portrait":
     activeScene = portrait;
     break;
   case "Photo Album":
     activeScene = album;
     break;
+  case "Closet?":
+    activeScene = closet;
+    break;
+  case "Bedroom 1":
+    activeScene = bedroom1;
+    break;
+  case "Bedroom 2":
+    activeScene = bedroom2;
+    break;
+  case "Diary":
+    activeScene = diary;
+    break;
+  case "Diary page":
+    activeScene = diaryPage;
+    break;
+  case "Door Lock":
+    activeScene = doorLock;
+    break;
+  case "Hallway 1":
+    activeScene = hallway1;
+    break;
+  case "Hallway 2":
+    activeScene = hallway2;
+    break;
+  
   }
 
   displayInventory = activeScene.allowInventory;

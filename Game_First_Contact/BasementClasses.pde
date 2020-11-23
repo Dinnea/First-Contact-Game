@@ -4,19 +4,19 @@ class SceneBasement_1 extends Scene {
     super("Basement1.png", "Basement", true);
     transitionAreas = new SceneTransitionArea[]{
       new SceneTransitionArea("Basement 2", 20, height - 100, 80, 80), 
-      new SceneTransitionArea("Portrait", 570, 35, 190, 300), 
-      new SceneTransitionArea("Chest", 867, 290, 133, 350)
+      new SceneTransitionArea("Portrait", 490, 70, 235, 310), 
+      new SceneTransitionArea("Chest", 820, 380, 140, 350)
     };
     //interactiveObjects = new InteractiveObject[]{
     //  new InteractiveObject(200, 200, 50, 50, "placeholder.png", true)
     //};
 
-    InteractiveDialogue candleDialogue1 = new InteractiveDialogue(469, 185, 80, 327, 
+    InteractiveDialogue candleDialogue1 = new InteractiveDialogue(419, 260, 80, 350, 
       new Dialogue(new String[]{
       "The candle flame is flickering"
       }));
 
-    InteractiveDialogue candleDialogue2 = new InteractiveDialogue(764, 184, 85, 329, 
+    InteractiveDialogue candleDialogue2 = new InteractiveDialogue(720, 260, 80, 350, 
       new Dialogue(new String[]{
       "The candle flame is flickering"
       }));
