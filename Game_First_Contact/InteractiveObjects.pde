@@ -20,3 +20,22 @@ class InteractiveObject {
     pickUp = canPickUp;
   }
 }
+
+// number lock
+
+class LockButton {
+  float x;
+  float y;
+  int w;
+  int h;
+  int n;
+  public LockButton(float lockX, float lockY, int lockW, int lockH, int Number){
+    x = lockX;
+    y = lockY;
+    w = lockW;
+    h = lockH;
+    n = Number;
+    
+    
+  }
+}

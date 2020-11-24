@@ -39,8 +39,75 @@ class DoorLock extends Scene {
     transitionAreas = new SceneTransitionArea[]{
       new SceneTransitionArea("Bedroom 1", width - 100, height - 100, 80, 80),
     };
-  }
-}
+    
+    
+      
+    
+
+    buttons = new LockButton[]{
+      new LockButton(480, 520, 50, 50, 1),
+      new LockButton(530, 520, 50, 50, 2),
+      new LockButton(580, 520, 50, 50, 3),
+      new LockButton(480, 470, 50, 50, 4),
+      new LockButton(530, 470, 50, 50, 5),
+      new LockButton(580, 470, 50, 50, 6),
+      new LockButton(480, 420, 50, 50, 7),
+      new LockButton(530, 420, 50, 50, 8),
+      new LockButton(580, 420, 50, 50, 9)
+    };  
+    }
+    
+    //buttons
+      int correct1 = 3;
+      int correct2 = 9;
+      int correct3 = 7;
+          
+      int saved1 = 0;
+      int saved2 = 0;
+      int saved3 = 0;
+      
+      boolean isSaved1 = false;
+      boolean isSaved2 = false;
+      boolean isSaved3 = false;
+      
+  void lockPuzzle(){
+    
+      
+       if (buttons!= null){
+        for (int  i = 0; i<buttons.length; i++){
+          //mouse hovers over
+          if (CheckPointOnBoxCollision(mouseX, mouseY,
+                                       buttons[i].x, buttons[i].y,
+                                       buttons[i].w, buttons[i].h)){                                     
+            if (isSaved1 != true){
+              saved1 = buttons[i].n;
+              isSaved1 = true;
+            }
+            else if (isSaved2 != true){
+              saved2 = buttons[i].n;
+              isSaved2 = true;
+            }
+            else if (isSaved3 != true){
+              saved3 = buttons[i].n;
+              isSaved3 = true;
+              if ((saved1 == correct1) && (saved2 == correct2) && (saved3 == correct3)){
+                transitionAreas = new SceneTransitionArea[]{
+                   new SceneTransitionArea("Hallway1", 500, 400, 80, 80),
+                };
+              }
+                else{
+                  isSaved1 = false;
+                  isSaved2 = false;
+                  isSaved3 = false;
+                }
+              }
+            }
+           
+          }
+        }
+      }
+   }
+
 
 //diary
 class Diary extends Scene {
