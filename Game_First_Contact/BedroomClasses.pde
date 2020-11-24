@@ -92,7 +92,7 @@ class DoorLock extends Scene {
               isSaved3 = true;
               if ((saved1 == correct1) && (saved2 == correct2) && (saved3 == correct3)){
                 transitionAreas = new SceneTransitionArea[]{
-                   new SceneTransitionArea("Hallway1", 500, 400, 80, 80),
+                   new SceneTransitionArea("Hallway", 500, 300, 80, 80),
                 };
               }
                 else{

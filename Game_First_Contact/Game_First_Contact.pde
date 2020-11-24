@@ -185,7 +185,7 @@ public static void ChangeScene(String newScene) {
   case "Door Lock":
     activeScene = doorLock;
     break;
-  case "Hallway 1":
+  case "Hallway":
     activeScene = hallway1;
     break;
   case "Hallway 2":
