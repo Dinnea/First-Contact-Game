@@ -201,7 +201,7 @@ void inventoryDisplay() {
       fill(255, 0, 0);
       rect(10, 227+(95*i), 56, 56);
     }
-    image(inventory.get(i).objectImage, 13, 230+(95*i), 50, 50);
+    image(inventory.get(i).inventoryImage, 13, 230+(95*i), 50, 50);
   }
 
   if (inventory != null) {

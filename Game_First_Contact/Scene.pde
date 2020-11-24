@@ -105,7 +105,7 @@ class Scene { // mostly code made by Dylan //<>// //<>// //<>// //<>// //<>// //
           interactiveObjects.get(i).areaWidth, 
           interactiveObjects.get(i).areaHeight)
           &&(interactiveObjects.get(i).pickUp)) {
-
+            
           inventory.add(interactiveObjects.get(i).item); //add to inventory
           interactiveObjects.remove(i); //remove the object from enviroment
         }
