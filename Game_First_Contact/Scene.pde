@@ -9,6 +9,7 @@ class Scene { // mostly code made by Dylan //<>// //<>// //<>// //<>// //<>// //
   // public InteractiveObject[] interactiveObjects;//list of objects that are interactive (added by Izabella)
   public InteractiveDialogue[] dialogueObjects;//list of objects that start dialogue
   public boolean allowInventory;
+  public LockButton[] buttons;
 
   //scene constructor
   public Scene(String background_File, String newSceneName, boolean sceneAllowInventory) {
@@ -57,6 +58,17 @@ class Scene { // mostly code made by Dylan //<>// //<>// //<>// //<>// //<>// //
         rect(dialogueObjects[i].x, dialogueObjects[i].y, dialogueObjects[i].areaWidth, dialogueObjects[i].areaHeight);
       }
     }
+    
+    //buttons
+     fill(0, 255, 255, 100);
+     stroke(0);
+    if (buttons != null) {
+      //For every dialogue object
+      for (int i = 0; i < buttons.length; i++) {
+        //Draw a rect overlay
+        rect(buttons[i].x, buttons[i].y, buttons[i].w, buttons[i].h);
+      }
+    }
 
 
     //array list
@@ -66,6 +78,7 @@ class Scene { // mostly code made by Dylan //<>// //<>// //<>// //<>// //<>// //
         image(interactiveObjects.get(i).item.objectImage, interactiveObjects.get(i).x, interactiveObjects.get(i).y);
       }
     }
+   
 
     fill (255, 0, 0, 100);
     noStroke();
@@ -162,6 +175,22 @@ class Scene { // mostly code made by Dylan //<>// //<>// //<>// //<>// //<>// //
         }
       }
     }
+    
+    //lock buttons
+    if (buttons != null) {
+      //for every dialogue object
+      for (int i = 0; i < buttons.length; i++) {
+        if (Game_First_Contact.CheckPointOnBoxCollision(mouseX, mouseY, 
+          buttons[i].x, 
+          buttons[i].y, 
+          buttons[i].w, 
+          buttons[i].h)) {
+          //change the cursor and stop checking
+          cursor(HAND);
+          return;
+        }
+      }
+    }
 
     //object checking added by Izabella
     //are there objects?
@@ -186,5 +215,8 @@ class Scene { // mostly code made by Dylan //<>// //<>// //<>// //<>// //<>// //
 
   public void MouseReleased() {
     return;
+  }
+  public void numberClick(){
+    
   }
 }

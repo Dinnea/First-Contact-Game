@@ -28,12 +28,16 @@ public static Office1 office1;
 public static boolean displayInventory;
 public static InventoryItem selectedItem;
 
+
+
 public static ArrayList <InventoryItem> inventory = new ArrayList<InventoryItem>();
 
 //Is a dialogue box active?
 public static boolean dialogueActive = false;
 //Dialogue to play
 public static Dialogue activeDialogue;
+
+
 
 void setup() {
   size(1000, 800);
@@ -54,7 +58,7 @@ void setup() {
   hallway1 = new Hallway1();
   hallway2 = new Hallway2();
   office1 = new Office1();
-  ChangeScene("Start");
+  ChangeScene("Door Lock");//"Start");
 }
 
 void draw() {
@@ -78,9 +82,14 @@ void draw() {
   if (displayInventory) {
     inventoryDisplay();
   }
+  
+  
+  
+  
 }
 
 void mouseClicked() {
+ 
   if (dialogueActive) {
     //Click in the dialogue box
     activeDialogue.MouseClicked();
@@ -106,6 +115,9 @@ public static boolean CheckPointOnBoxCollision(float pointX, float pointY,
 }
 
 void mousePressed() {
+   if (activeScene.scene_Name == "Door Lock"){
+    doorLock.lockPuzzle();
+  }
   if (inventory != null && displayInventory) {
     for (int i = 0; i<inventory.size(); i++) {
       //mouse hovers over?
@@ -121,13 +133,9 @@ void mousePressed() {
         return;
       }
     }
-    //      // if yes, change cursor and stop checking
-    //      cursor(inventory.get(i).objectImage);
-    //      return;
-    //    }
-    //  }
   }
 }
+
 
 public static void ChangeScene(String newScene) {
   //Switch to the requested scene
