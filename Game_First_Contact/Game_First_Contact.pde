@@ -21,6 +21,9 @@ public static DoorLock doorLock;
 public static Hallway1 hallway1;
 public static Hallway2 hallway2;
 
+//create offices
+public static Office1 office1;
+
 //create inventory
 public static boolean displayInventory;
 public static InventoryItem selectedItem;
@@ -29,7 +32,7 @@ public static ArrayList <InventoryItem> inventory = new ArrayList<InventoryItem>
 
 //Is a dialogue box active?
 public static boolean dialogueActive = false;
-//Dialogue to play.
+//Dialogue to play
 public static Dialogue activeDialogue;
 
 void setup() {
@@ -50,6 +53,7 @@ void setup() {
   doorLock = new DoorLock();
   hallway1 = new Hallway1();
   hallway2 = new Hallway2();
+  office1 = new Office1();
   ChangeScene("Start");
 }
 
@@ -116,18 +120,13 @@ void mousePressed() {
 
         return;
       }
-
     }
-  //      // if yes, change cursor and stop checking
-  //      cursor(inventory.get(i).objectImage);
-  //      return;
-  //    }
-  //  }
+    //      // if yes, change cursor and stop checking
+    //      cursor(inventory.get(i).objectImage);
+    //      return;
+    //    }
+    //  }
   }
-  
-}
-
-void mouseReleased() {
 }
 
 public static void ChangeScene(String newScene) {
@@ -151,9 +150,9 @@ public static void ChangeScene(String newScene) {
   case "Chest":
     activeScene = chest;
     break;
-  //case "Chest Open":
-  //  activeScene = chestOpen;
-  //  break;
+    //case "Chest Open":
+    //  activeScene = chestOpen;
+    //  break;
   case "Portrait":
     activeScene = portrait;
     break;
@@ -184,7 +183,9 @@ public static void ChangeScene(String newScene) {
   case "Hallway 2":
     activeScene = hallway2;
     break;
-  
+  case "Office 1":
+    activeScene = office1;
+    break;
   }
 
   displayInventory = activeScene.allowInventory;

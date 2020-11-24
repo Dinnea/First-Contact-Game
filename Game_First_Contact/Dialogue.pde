@@ -17,7 +17,7 @@ class Dialogue {
     rect(0, height - 150, width, 150);
     fill(255, 255, 255);
     textAlign(CENTER, TOP);
-    text(dialogueLines[currentDialogueLine], width / 2, height - 145);
+    text(dialogueLines[currentDialogueLine], 100, height - 125, width - 200, 125);
   }
 
   public void MouseClicked() {

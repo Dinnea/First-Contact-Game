@@ -11,7 +11,7 @@ class Scene { // mostly code made by Dylan //<>// //<>// //<>// //<>// //<>// //
   public boolean allowInventory;
 
   //scene constructor
-  public Scene(String background_File, String newSceneName, boolean newAllowInventory) {
+  public Scene(String background_File, String newSceneName, boolean sceneAllowInventory) {
 
     //load backgriun image from a file
     background_Image = loadImage(background_File);
@@ -21,14 +21,14 @@ class Scene { // mostly code made by Dylan //<>// //<>// //<>// //<>// //<>// //
 
     //set scene name
     scene_Name = newSceneName;
-
-    allowInventory = newAllowInventory;
+    
+    allowInventory = sceneAllowInventory;
   }
 
   //draw the scene
   public void Draw() {
     //show background image
-    image(background_Image, 0, 0);
+    image(background_Image, 0, 0, 1000, 800);
 
     //name of the scene display
     fill(255);
