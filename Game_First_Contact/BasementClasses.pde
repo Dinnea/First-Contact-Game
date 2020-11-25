@@ -1,6 +1,13 @@
 //basement 1
 class SceneBasement_1 extends Scene {
 
+  private boolean firstEntrance = true;
+
+  Dialogue enterSceneDialogue = new Dialogue(new String[]{
+    "P: \"The basement always looks vaguely the same.\"",
+    "P: \"Some things change, sometimes things are in a different place but there are things that never change, like the portrait on the wall for example!\""
+    });
+
   public SceneBasement_1() {
     super("Basement1.png", "Basement", true);
     transitionAreas = new SceneTransitionArea[]{
@@ -24,6 +31,20 @@ class SceneBasement_1 extends Scene {
 
     dialogueObjects = new InteractiveDialogue[]{candleDialogue1, candleDialogue2};
   }
+
+  public void Draw() {
+    //Check if it's the first time entering the room
+    if (firstEntrance) {
+      //Play the dialogue
+      enterSceneDialogue.Play();
+      
+      //Update the boolean
+      firstEntrance = false;
+    }
+
+    //Draw the rest of the scene
+    super.Draw();
+  }
 }
 
 class Chest extends Scene {
@@ -33,7 +54,8 @@ class Chest extends Scene {
 
   InteractiveDialogue ChestSheetDialogue = new InteractiveDialogue(75, 167, 920, 532, 
     new Dialogue(new String[]{
-    "- I took off the white sheet, It's a chest -"
+    "- I took off the white sheet, It's a chest -",
+    "P: \"there was a chest in the corner of the room, but it was locked\""
     }));
 
   InteractiveDialogue chestClosedDialogue = new InteractiveDialogue(75, 167, 920, 532, 
@@ -42,13 +64,13 @@ class Chest extends Scene {
     }));
 
   Dialogue unlockChestDialogue = new Dialogue(new String[]{
-    "- The chest opened and I looked inside, it was totally black -", 
-    "- I reached my arm in and tried to fill around -", 
-    "- Nothing.. -", 
-    "- I took the sheet from besides me and dropped it in -", 
-    "- I watched it slowly drift to the bottom until it hit the ground, my eyes widened in shock -", 
-    "- It must be atleast 6 feet deep.. -", 
-    "- I considered going inside -"
+    "P: \"The chest opened and I looked inside, it was totally black\"", 
+    "P: \"I reached my arm in and tried to feel around\"", 
+    "P: \"Nothing..\"", 
+    "P: \"I took the sheet from besides me and dropped it in\"", 
+    "P: \"I watched it slowly drift to the bottom until it hit the ground",
+    "P: \"It looked to be about 6 feet deep, but for some reason I concidered going inside\"", 
+    "- The therapist scribbles something on her paper -"
     });
 
   SceneTransitionArea transitionToCloset = new SceneTransitionArea("Closet?", 100, 350, 800, 300);
@@ -82,11 +104,10 @@ class Chest extends Scene {
         hover = true;
       }
     }
-    
-    if(hover){
+
+    if (hover) {
       cursor(HAND);
-    }
-    else{
+    } else {
       super.MouseHover();
     }
   }
@@ -140,6 +161,7 @@ class Portrait extends Scene {
   boolean puzzleSolved = false;
   boolean keyPickedUp = false;
   boolean firstEntrance = true;
+  boolean distortedPainting = false;
 
   private InteractiveObject itemKey = new InteractiveObject(432, 338, 100, 100, "placeholder.png", true, "Chest Key");
 
@@ -148,10 +170,12 @@ class Portrait extends Scene {
 
   private Dialogue sceneEnterConversation = new Dialogue(new String[]{
     "- It's a portrait of a young girl with a key necklace -", 
-    "T: \"Do you recognize the painting?\"", 
-    "P: \"Yes it's a portrait of my sister..\"", 
-    "T: \"You sound surprised\"", 
-    "P: \"She's been dead for years\""
+    "P: \"The portrait on the wall was always something I looked at first, it captivated me in a way that is hard to describe\"",
+    "T: \"Do you recognize the painting?\"",
+    "P: \"Yes its a portrait of my sister..\"",
+    "T: \"you sound supprised?\"",
+    "P: \"She's been dead for years, mom said she got ill but I'm starting to question it..\"",
+    "T: \"interesting, please continue\""
     });
 
   private Dialogue picturesWrongOrderDialogue = new Dialogue(new String[]{
@@ -159,9 +183,16 @@ class Portrait extends Scene {
     });
 
   private Dialogue picturesCorrectOrderDialogue = new Dialogue(new String[]{
-    "- As I put the last piece in place the world warped before me, the portrait seemed to melt as the world spun. -", 
-    "- I looked back at the picture only to see my own reflection, and the key still floating in the middle of the painting. - ", 
-    "- I felt the urge to grab it. -"
+    "P: \"As I put the last piece in place the world warped before me, the portrait seemed to melt as the world spun.\""
+    });
+    
+    private Dialogue picturesCorrectOrderDialogue2 = new Dialogue(new String[]{
+      "P: \"I looked back at the picture only to see my own reflection, and the key still floating in the middle of the painting.\"",
+      "P: \"I felt the urge to grab it.\""
+    });
+    
+    private Dialogue pickUpKeyDialogue = new Dialogue(new String[]{
+      "P: \"I reached out and i could feel the key in my hand\""
     });
 
   InteractiveDialogue portraitDialogue = new InteractiveDialogue(284, 59, 433, 608, 
@@ -213,9 +244,15 @@ class Portrait extends Scene {
     }
 
     //If the puzzle is solved and the key hasn't been picked up yet
-    if (puzzleSolved && !keyPickedUp) {
+    if (puzzleSolved && !keyPickedUp && !distortedPainting) {
       //Draw the key in the scene
       image(itemKey.item.objectImage, itemKey.x, itemKey.y, itemKey.areaWidth, itemKey.areaHeight);
+    }
+    
+    if(puzzleSolved && !Game_First_Contact.dialogueActive && distortedPainting){
+      distortedPainting = false;
+      background_Image = loadImage("reflection.png");
+      picturesCorrectOrderDialogue2.Play();
     }
   }
 
@@ -235,7 +272,7 @@ class Portrait extends Scene {
           hovered = true;
         }
       }
-    } else if (puzzleSolved && !keyPickedUp) {
+    } else if (puzzleSolved && !keyPickedUp && !distortedPainting) {
       if (Game_First_Contact.CheckPointOnBoxCollision(mouseX, mouseY, itemKey.x, itemKey.y, itemKey.areaWidth, itemKey.areaHeight)) {
         hovered = true;
       }
@@ -330,6 +367,8 @@ class Portrait extends Scene {
 
               //Set the puzzle to solved
               puzzleSolved = true;
+              
+              distortedPainting = true;
 
               //Change the background
               background_Image = loadImage("portrait faded.png");
@@ -339,10 +378,11 @@ class Portrait extends Scene {
       }
     } else if (puzzleSolved)
     {
-      if (!keyPickedUp) {
+      if (!keyPickedUp && !distortedPainting) {
         if (Game_First_Contact.CheckPointOnBoxCollision(mouseX, mouseY, itemKey.x, itemKey.y, itemKey.areaWidth, itemKey.areaHeight)) {
           keyPickedUp = true;
           Game_First_Contact.inventory.add(itemKey.item);
+          pickUpKeyDialogue.Play();
         }
       }
     }
