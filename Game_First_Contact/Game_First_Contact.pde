@@ -1,3 +1,10 @@
+import processing.sound.*;
+public static SoundFile mainTheme;
+public static SoundFile denied;
+public static SoundFile keypadPress;
+public static SoundFile accepted;
+public static SoundFile yeet;
+
 //create basement rooms
 public static SceneStart start;
 public static Scene activeScene;
@@ -41,6 +48,12 @@ public static Dialogue activeDialogue;
 
 void setup() {
   size(1000, 800);
+  mainTheme = new SoundFile(this, "main_theme.mp3");
+  denied = new SoundFile(this, "keypad_denied.mp3");
+  keypadPress = new SoundFile(this, "keypad_press.mp3");
+  accepted = new SoundFile(this, "keypad_granted.mp3");
+  yeet = new SoundFile(this, "yeet.mp3");
+  
   start = new SceneStart();
   basement_1 = new SceneBasement_1();
   basement_2 = new SceneBasement_2();
@@ -58,7 +71,10 @@ void setup() {
   hallway1 = new Hallway1();
   hallway2 = new Hallway2();
   office1 = new Office1();
-  ChangeScene("Start");
+  ChangeScene("Start");  
+  
+  mainTheme.amp(0.3);
+  mainTheme.loop();
 }
 
 void draw() {
