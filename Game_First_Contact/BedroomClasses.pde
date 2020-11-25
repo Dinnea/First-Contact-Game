@@ -16,6 +16,7 @@ class Closet extends Scene {
     if (firstEntrance) {
       //Play the dialogue
       inClosetDialogue.Play();
+      yeet.amp(1);
       yeet.play();
       
       //Update the boolean
