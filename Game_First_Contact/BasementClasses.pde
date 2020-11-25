@@ -87,7 +87,7 @@ class Chest extends Scene {
       cursor(HAND);
     }
     else{
-      cursor(ARROW);
+      super.MouseHover();
     }
   }
 
@@ -219,7 +219,7 @@ class Portrait extends Scene {
     }
   }
 
-  public void MouseHover() {   
+  public void MouseHover() {
     boolean hovered = false;
 
     if (!puzzleSolved) {
