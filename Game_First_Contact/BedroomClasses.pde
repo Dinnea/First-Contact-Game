@@ -1,55 +1,92 @@
 //closet
 class Closet extends Scene {
+  private boolean firstEntrance = true;
+   Dialogue inClosetDialogue = new Dialogue(new String[]{
+    "- I didn't even feel like I was falling, I hardly even noticed i had hit the ground -",
+    "- I felt around and pushed against the wall of the box, the 'wall' gave out and I stumbled into a bedroom -"
+    });
   public Closet() {
     super("Inside_closet.png", "Closet?", false);
     transitionAreas = new SceneTransitionArea[]{
       new SceneTransitionArea("Bedroom 1",0,0, 1000, 800),
     };
-     Dialogue inClosetDialogue = new Dialogue(new String[]{
-    "- I didn't even feel like I was falling, I hardly even noticed i had hit the ground -",
-    "- I felt around and pushed against the wall of the box, the 'wall' gave out and I stumbled into a bedroom -"
-    });
+  }
+   public void Draw() {
+    //Check if it's the first time entering the room
+    if (firstEntrance) {
+      //Play the dialogue
+      inClosetDialogue.Play();
+      yeet.play();
+      
+      //Update the boolean
+      firstEntrance = false;
+    }
+
+    //Draw the rest of the scene
+    super.Draw();
   }
 }
 
 //bedroom1
 class Bedroom1 extends Scene {
+  private boolean firstEntrance = true;
+   Dialogue inBedroom = new Dialogue(new String[]{
+    "- something will be said here -",
+    });
   public Bedroom1() {
     super("bedroom1.png", "Beedroom 1", false);
     transitionAreas = new SceneTransitionArea[]{
       new SceneTransitionArea("Bedroom 2", width - 100, height - 100, 80, 80),
       new SceneTransitionArea("Door Lock", 380, 420, 50, 50)
     };  
+     
+  }
+     public void Draw() {
+    //Check if it's the first time entering the room
+    if (firstEntrance) {
+      //Play the dialogue
+      inBedroom.Play();
+      
+      //Update the boolean
+      firstEntrance = false;
+    }
+
+    //Draw the rest of the scene
+    super.Draw();
   }
 }
 
 //bedroom2
 class Bedroom2 extends Scene {
+  
   public Bedroom2() {
     super("bedroom2.png", "Beedroom 2", false);
     transitionAreas = new SceneTransitionArea[]{
       new SceneTransitionArea("Bedroom 1", 20, height - 100, 80, 80),
       new SceneTransitionArea("Diary", width/2, height/2, 80, 80),
     };
-    InteractiveDialogue closetClickDialogue = new InteractiveDialogue(75, 167, 920, 532, 
+    
+    InteractiveDialogue closetClickDialogue = new InteractiveDialogue(400, 0, 300 , 532, 
     new Dialogue(new String[]{
     "- It's the closet I fell out of -"
     }));
+    dialogueObjects = new InteractiveDialogue[]{closetClickDialogue};
   }
 }
 
 //door lock zoom
 class DoorLock extends Scene {
+  private boolean firstEntrance = true;
+   Dialogue nearLockDialogue = new Dialogue(new String[]{
+    "- The door is locked, it seems i need a code...-"
+    });
   public DoorLock() {
     super("Door_lock.png", "Door Lock", false);
     transitionAreas = new SceneTransitionArea[]{
       new SceneTransitionArea("Bedroom 1", width - 100, height - 100, 80, 80),
     };
     
-    Dialogue nearLockDialogue = new Dialogue(new String[]{
-    "- The door is locked, it seems i need a code...-"
-    });
-    
+     
     
       
     
@@ -66,6 +103,20 @@ class DoorLock extends Scene {
       new LockButton(580, 420, 50, 50, 9)
     };  
     }
+    
+     public void Draw() {
+    //Check if it's the first time entering the room
+    if (firstEntrance) {
+      //Play the dialogue
+      nearLockDialogue.Play();
+      
+      //Update the boolean
+      firstEntrance = false;
+    }
+
+    //Draw the rest of the scene
+    super.Draw();
+  }
     
     //buttons
       int correct1 = 3;
@@ -88,7 +139,8 @@ class DoorLock extends Scene {
           //mouse hovers over
           if (CheckPointOnBoxCollision(mouseX, mouseY,
                                        buttons[i].x, buttons[i].y,
-                                       buttons[i].w, buttons[i].h)){                                     
+                                       buttons[i].w, buttons[i].h)){
+            keypadPress.play();
             if (isSaved1 != true){
               saved1 = buttons[i].n;
               isSaved1 = true;
@@ -104,11 +156,13 @@ class DoorLock extends Scene {
                 transitionAreas = new SceneTransitionArea[]{
                    new SceneTransitionArea("Hallway", 500, 300, 80, 80),
                 };
+                accepted.play();
               }
                 else{
                   isSaved1 = false;
                   isSaved2 = false;
                   isSaved3 = false;
+                  denied.play();
                 }
               }
             }
