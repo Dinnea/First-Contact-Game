@@ -1,3 +1,5 @@
+import processing.sound.*;
+
 //create basement rooms
 public static SceneStart start;
 public static Scene activeScene;
@@ -24,11 +26,21 @@ public static Hallway2 hallway2;
 //create offices
 public static Office1 office1;
 
+//Create sound files
+public static SoundFile chestUnlockSound;
+public static SoundFile paperRipSound;
+public static SoundFile clothSound;
+
 //create inventory
 public static boolean displayInventory;
 public static InventoryItem selectedItem;
 
-
+//Scene transitions
+private static Scene sceneToChangeTo;
+private static boolean changingScene;
+private static boolean fadingOut;
+private static float sceneTransitionSpeed = 15;
+private static int sceneDarkness = 0;
 
 public static ArrayList <InventoryItem> inventory = new ArrayList<InventoryItem>();
 
@@ -41,6 +53,11 @@ public static Dialogue activeDialogue;
 
 void setup() {
   size(1000, 800);
+  
+  chestUnlockSound = new SoundFile(this, "chest unlock.mp3");
+  paperRipSound = new SoundFile(this, "paper rip.mp3");
+  clothSound = new SoundFile(this, "cloth.mp3");
+  
   start = new SceneStart();
   basement_1 = new SceneBasement_1();
   basement_2 = new SceneBasement_2();
@@ -58,45 +75,84 @@ void setup() {
   hallway1 = new Hallway1();
   hallway2 = new Hallway2();
   office1 = new Office1();
-  ChangeScene("Start");
+  activeScene = start;
 }
 
-void draw() {
+void draw() {  
   //draw the actice scene
   activeScene.Draw();
 
-  //If there is an active dialogue box
-  if (dialogueActive) {
-    //Draw the dialogue
-    activeDialogue.Draw();
+  //If changing the scene
+  if (changingScene) {
 
-    //Check for mouse hover in the dialogue
-    activeDialogue.MouseHover();
-  } else {
-    //Check for mouse hover in the scene
-    activeScene.MouseHover();
+    //Change the mouse cursor to an arrow
+    cursor(ARROW);
+
+    //If fading out
+    if (fadingOut) {
+      //raise the scene darkness
+      sceneDarkness += sceneTransitionSpeed;
+      //If the scene comepletely faded out
+      if (sceneDarkness >= 255) {
+        sceneDarkness = 255;
+
+        //Stop fading out
+        fadingOut = false;
+
+        //Change the scene
+        activeScene = sceneToChangeTo;
+      }
+    } //Else if not fading out
+    else {
+      //Lower the scene darkness
+      sceneDarkness -= sceneTransitionSpeed;
+
+      //If the sceneOpacity is full
+      if (sceneDarkness <= 0) {
+        sceneDarkness = 0;
+
+        //Stop changing the scene
+        changingScene = false;
+      }
+    }
+  } //Else if not changing the scene
+  else {
+    //If there is an active dialogue box
+    if (dialogueActive) {
+      //Draw the dialogue
+      activeDialogue.Draw();
+
+      //Check for mouse hover in the dialogue
+      activeDialogue.MouseHover();
+    } else {
+      //Check for mouse hover in the scene
+      activeScene.MouseHover();
+    }
+
+    //display the inventory
+
+    if (displayInventory) {
+      inventoryDisplay();
+    }
   }
 
-  //display the inventory
-
-  if (displayInventory) {
-    inventoryDisplay();
-  }
-  
-  
-  
-  
+  //Draw a coloured rectangle based on scene Opacity
+  fill(0, 0, 0, sceneDarkness);
+  rect(0, 0, width, height);
 }
 
 void mouseClicked() {
- 
-  if (dialogueActive) {
-    //Click in the dialogue box
-    activeDialogue.MouseClicked();
-  } //If there is no dialogue box active
-  else {
-    //Click inside the scene
-    activeScene.MouseClicked();
+  //Only run this code if we're not changing scene
+  if (!changingScene) {
+
+    if (dialogueActive) {
+      //Click in the dialogue box
+      activeDialogue.MouseClicked();
+    } //If there is no dialogue box active
+    else {
+      //Click inside the scene
+      activeScene.MouseClicked();
+    }
   }
 }
 
@@ -115,22 +171,25 @@ public static boolean CheckPointOnBoxCollision(float pointX, float pointY,
 }
 
 void mousePressed() {
-   if (activeScene.scene_Name == "Door Lock"){
-    doorLock.lockPuzzle();
-  }
-  if (inventory != null && displayInventory) {
-    for (int i = 0; i<inventory.size(); i++) {
-      //mouse hovers over?
-      if (CheckPointOnBoxCollision(mouseX, mouseY, 
-        13, 
-        230+(95*i), 
-        50, 
-        50)) {
-        // if yes, change cursor
-        selectedItem = inventory.get(i);
+  //Only run this code if we're not changing scene
+  if (!changingScene) {
+    if (activeScene.scene_Name == "Door Lock") {
+      doorLock.lockPuzzle();
+    }
+    if (inventory != null && displayInventory) {
+      for (int i = 0; i<inventory.size(); i++) {
+        //mouse hovers over?
+        if (CheckPointOnBoxCollision(mouseX, mouseY, 
+          13, 
+          230+(95*i), 
+          50, 
+          50)) {
+          // if yes, change cursor
+          selectedItem = inventory.get(i);
 
 
-        return;
+          return;
+        }
       }
     }
   }
@@ -138,65 +197,72 @@ void mousePressed() {
 
 
 public static void ChangeScene(String newScene) {
+
+  //Indicate that we're changing scenes
+  changingScene = true;
+
+  //Indicate that we're fading out
+  fadingOut = true;
+
   //Switch to the requested scene
   switch(newScene) {
   case "Start":
-    activeScene = start;
+    sceneToChangeTo = start;
     break;
   case "Basement 1":
-    activeScene = basement_1;
+    sceneToChangeTo = basement_1;
     break;
   case "Basement 2":
-    activeScene = basement_2;
+    sceneToChangeTo = basement_2;
     break;
   case "Bookshelf Top":
-    activeScene = bookshelfTop;
+    sceneToChangeTo = bookshelfTop;
     break;
   case "Bookshelf Bottom":
-    activeScene = bookshelfBot;
+    sceneToChangeTo = bookshelfBot;
     break;
   case "Chest":
-    activeScene = chest;
+    sceneToChangeTo = chest;
     break;
     //case "Chest Open":
     //  activeScene = chestOpen;
     //  break;
   case "Portrait":
-    activeScene = portrait;
+    sceneToChangeTo = portrait;
     break;
   case "Photo Album":
-    activeScene = album;
+    sceneToChangeTo = album;
     break;
   case "Closet?":
-    activeScene = closet;
+    sceneToChangeTo = closet;
     break;
   case "Bedroom 1":
-    activeScene = bedroom1;
+    sceneToChangeTo = bedroom1;
     break;
   case "Bedroom 2":
-    activeScene = bedroom2;
+    sceneToChangeTo = bedroom2;
     break;
   case "Diary":
-    activeScene = diary;
+    sceneToChangeTo = diary;
     break;
   case "Diary page":
-    activeScene = diaryPage;
+    sceneToChangeTo = diaryPage;
     break;
   case "Door Lock":
-    activeScene = doorLock;
+    sceneToChangeTo = doorLock;
     break;
   case "Hallway":
-    activeScene = hallway1;
+    sceneToChangeTo = hallway1;
     break;
   case "Hallway 2":
-    activeScene = hallway2;
+    sceneToChangeTo = hallway2;
     break;
   case "Office 1":
-    activeScene = office1;
+    sceneToChangeTo = office1;
     break;
   }
 
-  displayInventory = activeScene.allowInventory;
+  displayInventory = sceneToChangeTo.allowInventory;
 }
 
 void inventoryDisplay() {

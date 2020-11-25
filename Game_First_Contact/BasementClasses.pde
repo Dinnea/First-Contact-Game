@@ -4,7 +4,7 @@ class SceneBasement_1 extends Scene {
   private boolean firstEntrance = true;
 
   Dialogue enterSceneDialogue = new Dialogue(new String[]{
-    "P: \"The basement always looks vaguely the same.\"",
+    "P: \"The basement always looks vaguely the same.\"", 
     "P: \"Some things change, sometimes things are in a different place but there are things that never change, like the portrait on the wall for example!\""
     });
 
@@ -37,7 +37,7 @@ class SceneBasement_1 extends Scene {
     if (firstEntrance) {
       //Play the dialogue
       enterSceneDialogue.Play();
-      
+
       //Update the boolean
       firstEntrance = false;
     }
@@ -54,7 +54,7 @@ class Chest extends Scene {
 
   InteractiveDialogue ChestSheetDialogue = new InteractiveDialogue(75, 167, 920, 532, 
     new Dialogue(new String[]{
-    "- I took off the white sheet, It's a chest -",
+    "- I took off the white sheet, It's a chest -", 
     "P: \"there was a chest in the corner of the room, but it was locked\""
     }));
 
@@ -68,7 +68,7 @@ class Chest extends Scene {
     "P: \"I reached my arm in and tried to feel around\"", 
     "P: \"Nothing..\"", 
     "P: \"I took the sheet from besides me and dropped it in\"", 
-    "P: \"I watched it slowly drift to the bottom until it hit the ground",
+    "P: \"I watched it slowly drift to the bottom until it hit the ground", 
     "P: \"It looked to be about 6 feet deep, but for some reason I concidered going inside\"", 
     "- The therapist scribbles something on her paper -"
     });
@@ -119,6 +119,9 @@ class Chest extends Scene {
       if (Game_First_Contact.CheckPointOnBoxCollision(mouseX, mouseY, ChestSheetDialogue.x, ChestSheetDialogue.y, ChestSheetDialogue.areaWidth, ChestSheetDialogue.areaHeight)) {
         //Play the dialogue
         ChestSheetDialogue.dialogueToDisplay.Play();
+        
+        //Play the cloth sound
+        clothSound.play();
 
         //Remove the sheet
         sheetPresent = false;
@@ -133,6 +136,9 @@ class Chest extends Scene {
         if (Game_First_Contact.selectedItem != null && Game_First_Contact.selectedItem.itemName == "Chest Key") {
           //Play the "unlock" dialogue
           unlockChestDialogue.Play();
+
+          //Play the unlock chest sound
+          Game_First_Contact.chestUnlockSound.play();
 
           //Unlock the chest
           chestLocked = false;
@@ -170,11 +176,11 @@ class Portrait extends Scene {
 
   private Dialogue sceneEnterConversation = new Dialogue(new String[]{
     "- It's a portrait of a young girl with a key necklace -", 
-    "P: \"The portrait on the wall was always something I looked at first, it captivated me in a way that is hard to describe\"",
-    "T: \"Do you recognize the painting?\"",
-    "P: \"Yes its a portrait of my sister..\"",
-    "T: \"you sound supprised?\"",
-    "P: \"She's been dead for years, mom said she got ill but I'm starting to question it..\"",
+    "P: \"The portrait on the wall was always something I looked at first, it captivated me in a way that is hard to describe\"", 
+    "T: \"Do you recognize the painting?\"", 
+    "P: \"Yes its a portrait of my sister..\"", 
+    "T: \"you sound supprised?\"", 
+    "P: \"She's been dead for years, mom said she got ill but I'm starting to question it..\"", 
     "T: \"interesting, please continue\""
     });
 
@@ -185,14 +191,14 @@ class Portrait extends Scene {
   private Dialogue picturesCorrectOrderDialogue = new Dialogue(new String[]{
     "P: \"As I put the last piece in place the world warped before me, the portrait seemed to melt as the world spun.\""
     });
-    
-    private Dialogue picturesCorrectOrderDialogue2 = new Dialogue(new String[]{
-      "P: \"I looked back at the picture only to see my own reflection, and the key still floating in the middle of the painting.\"",
-      "P: \"I felt the urge to grab it.\""
+
+  private Dialogue picturesCorrectOrderDialogue2 = new Dialogue(new String[]{
+    "P: \"I looked back at the picture only to see my own reflection, and the key still floating in the middle of the painting.\"", 
+    "P: \"I felt the urge to grab it.\""
     });
-    
-    private Dialogue pickUpKeyDialogue = new Dialogue(new String[]{
-      "P: \"I reached out and i could feel the key in my hand\""
+
+  private Dialogue pickUpKeyDialogue = new Dialogue(new String[]{
+    "P: \"I reached out and i could feel the key in my hand\""
     });
 
   InteractiveDialogue portraitDialogue = new InteractiveDialogue(284, 59, 433, 608, 
@@ -248,8 +254,8 @@ class Portrait extends Scene {
       //Draw the key in the scene
       image(itemKey.item.objectImage, itemKey.x, itemKey.y, itemKey.areaWidth, itemKey.areaHeight);
     }
-    
-    if(puzzleSolved && !Game_First_Contact.dialogueActive && distortedPainting){
+
+    if (puzzleSolved && !Game_First_Contact.dialogueActive && distortedPainting) {
       distortedPainting = false;
       background_Image = loadImage("reflection.png");
       picturesCorrectOrderDialogue2.Play();
@@ -367,7 +373,7 @@ class Portrait extends Scene {
 
               //Set the puzzle to solved
               puzzleSolved = true;
-              
+
               distortedPainting = true;
 
               //Change the background
@@ -445,6 +451,7 @@ class Bookshelf_Bot extends Scene {
 
 class Album extends Scene {
   private boolean firstEntrance = true;
+  private ArrayList<InteractiveObject> pictures = new ArrayList<InteractiveObject>();
 
   private Dialogue sceneEnterConversation = new Dialogue(new String[]{
     "- There's a book laying on the ground -", 
@@ -457,19 +464,42 @@ class Album extends Scene {
       new SceneTransitionArea("Basement 2", 20, height - 100, 80, 80)
     };
 
-    interactiveObjects.add(new InteractiveObject(127, 391, 325, 230, "picture 1.png", true, "Picture 1"));
-    interactiveObjects.add(new InteractiveObject(127, 147, 325, 230, "picture 2.png", true, "Picture 2"));
-    interactiveObjects.add(new InteractiveObject(503, 386, 325, 230, "picture 3.png", true, "Picture 3"));
-    interactiveObjects.add(new InteractiveObject(495, 135, 325, 230, "picture 4.png", true, "Picture 4"));
+    pictures.add(new InteractiveObject(127, 391, 325, 230, "picture 1.png", true, "Picture 1"));
+    pictures.add(new InteractiveObject(127, 147, 325, 230, "picture 2.png", true, "Picture 2"));
+    pictures.add(new InteractiveObject(503, 386, 325, 230, "picture 3.png", true, "Picture 3"));
+    pictures.add(new InteractiveObject(495, 135, 325, 230, "picture 4.png", true, "Picture 4"));
   }
 
   public void Draw() {
     super.Draw();
+    
+    for(int i = 0; i < pictures.size(); i++){
+      image(pictures.get(i).item.objectImage, pictures.get(i).x, pictures.get(i).y);
+    }
 
     //Play the conversation if it's the first time you enter this scene
     if (firstEntrance) {
       sceneEnterConversation.Play();
       firstEntrance = false;
     }
+  }
+
+  public void MouseClicked() {
+    //For each picture
+    for(int i = 0; i < pictures.size(); i++){
+      //If the user clicked on the picture
+      if(Game_First_Contact.CheckPointOnBoxCollision(mouseX, mouseY, pictures.get(i).x, pictures.get(i).y, pictures.get(i).areaWidth, pictures.get(i).areaHeight)){
+        //Play the paper rip sound file
+        paperRipSound.play();
+        
+        //Add the picture to the inventory
+        Game_First_Contact.inventory.add(pictures.get(i).item);
+        
+        //Remove the picture from the list
+        pictures.remove(i);
+      }
+    }
+    
+    super.MouseClicked();
   }
 }
