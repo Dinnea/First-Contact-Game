@@ -58,7 +58,7 @@ void setup() {
   hallway1 = new Hallway1();
   hallway2 = new Hallway2();
   office1 = new Office1();
-  ChangeScene("Door Lock");//"Start");
+  ChangeScene("Start");
 }
 
 void draw() {

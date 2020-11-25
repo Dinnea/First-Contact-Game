@@ -4,9 +4,11 @@ class Closet extends Scene {
     super("Inside_closet.png", "Closet?", false);
     transitionAreas = new SceneTransitionArea[]{
       new SceneTransitionArea("Bedroom 1",0,0, 1000, 800),
-      new SceneTransitionArea("Bedroom 1",0,0, 1000, 800),
     };
-    
+     Dialogue inClosetDialogue = new Dialogue(new String[]{
+    "- I didn't even feel like I was falling, I hardly even noticed i had hit the ground -",
+    "- I felt around and pushed against the wall of the box, the 'wall' gave out and I stumbled into a bedroom -"
+    });
   }
 }
 
@@ -29,6 +31,10 @@ class Bedroom2 extends Scene {
       new SceneTransitionArea("Bedroom 1", 20, height - 100, 80, 80),
       new SceneTransitionArea("Diary", width/2, height/2, 80, 80),
     };
+    InteractiveDialogue closetClickDialogue = new InteractiveDialogue(75, 167, 920, 532, 
+    new Dialogue(new String[]{
+    "- It's the closet I fell out of -"
+    }));
   }
 }
 
@@ -39,6 +45,10 @@ class DoorLock extends Scene {
     transitionAreas = new SceneTransitionArea[]{
       new SceneTransitionArea("Bedroom 1", width - 100, height - 100, 80, 80),
     };
+    
+    Dialogue nearLockDialogue = new Dialogue(new String[]{
+    "- The door is locked, it seems i need a code...-"
+    });
     
     
       
