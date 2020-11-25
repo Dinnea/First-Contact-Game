@@ -73,7 +73,7 @@ class Chest extends Scene {
     "- The therapist scribbles something on her paper -"
     });
 
-  SceneTransitionArea transitionToCloset = new SceneTransitionArea("Closet?", 100, 350, 800, 300);
+  SceneTransitionArea transitionToCloset = new SceneTransitionArea("Closet?", 100, 400, 800, 300);
 
   public Chest() {
     super ("chest closed sheet.png", "Chest", true);
@@ -119,7 +119,7 @@ class Chest extends Scene {
       if (Game_First_Contact.CheckPointOnBoxCollision(mouseX, mouseY, ChestSheetDialogue.x, ChestSheetDialogue.y, ChestSheetDialogue.areaWidth, ChestSheetDialogue.areaHeight)) {
         //Play the dialogue
         ChestSheetDialogue.dialogueToDisplay.Play();
-        
+
         //Play the cloth sound
         clothSound.play();
 
@@ -178,10 +178,10 @@ class Portrait extends Scene {
     "- It's a portrait of a young girl with a key necklace -", 
     "P: \"The portrait on the wall was always something I looked at first, it captivated me in a way that is hard to describe\"", 
     "T: \"Do you recognize the painting?\"", 
-    "P: \"Yes its a portrait of my sister..\"", 
-    "T: \"you sound supprised?\"", 
+    "P: \"Yes, it's a portrait of my sister..\"", 
+    "T: \"You sound surprised?\"", 
     "P: \"She's been dead for years, mom said she got ill but I'm starting to question it..\"", 
-    "T: \"interesting, please continue\""
+    "T: \"Interesting, please continue\""
     });
 
   private Dialogue picturesWrongOrderDialogue = new Dialogue(new String[]{
@@ -198,7 +198,7 @@ class Portrait extends Scene {
     });
 
   private Dialogue pickUpKeyDialogue = new Dialogue(new String[]{
-    "P: \"I reached out and i could feel the key in my hand\""
+    "P: \"I reached out and I could feel the key in my hand\""
     });
 
   InteractiveDialogue portraitDialogue = new InteractiveDialogue(284, 59, 433, 608, 
@@ -472,8 +472,8 @@ class Album extends Scene {
 
   public void Draw() {
     super.Draw();
-    
-    for(int i = 0; i < pictures.size(); i++){
+
+    for (int i = 0; i < pictures.size(); i++) {
       image(pictures.get(i).item.objectImage, pictures.get(i).x, pictures.get(i).y);
     }
 
@@ -484,22 +484,38 @@ class Album extends Scene {
     }
   }
 
+  public void MouseHover() {
+    boolean hovering = false;
+
+    for (int i = 0; i < pictures.size(); i++) {
+      if (CheckPointOnBoxCollision(mouseX, mouseY, pictures.get(i).x, pictures.get(i).y, pictures.get(i).areaWidth, pictures.get(i).areaHeight)) {
+        hovering = true;
+      }
+    }
+
+    if (hovering) {
+      cursor(HAND);
+    } else {
+      super.MouseHover();
+    }
+  }
+
   public void MouseClicked() {
     //For each picture
-    for(int i = 0; i < pictures.size(); i++){
+    for (int i = 0; i < pictures.size(); i++) {
       //If the user clicked on the picture
-      if(Game_First_Contact.CheckPointOnBoxCollision(mouseX, mouseY, pictures.get(i).x, pictures.get(i).y, pictures.get(i).areaWidth, pictures.get(i).areaHeight)){
+      if (Game_First_Contact.CheckPointOnBoxCollision(mouseX, mouseY, pictures.get(i).x, pictures.get(i).y, pictures.get(i).areaWidth, pictures.get(i).areaHeight)) {
         //Play the paper rip sound file
         paperRipSound.play();
-        
+
         //Add the picture to the inventory
         Game_First_Contact.inventory.add(pictures.get(i).item);
-        
+
         //Remove the picture from the list
         pictures.remove(i);
       }
     }
-    
+
     super.MouseClicked();
   }
 }

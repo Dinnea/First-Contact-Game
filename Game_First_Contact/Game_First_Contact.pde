@@ -41,14 +41,14 @@ public static SoundFile clothSound;
 public static boolean displayInventory;
 public static InventoryItem selectedItem;
 
+public static ArrayList <InventoryItem> inventory = new ArrayList<InventoryItem>();
+
 //Scene transitions
 private static Scene sceneToChangeTo;
 private static boolean changingScene;
 private static boolean fadingOut;
 private static float sceneTransitionSpeed = 15;
 private static int sceneDarkness = 0;
-
-public static ArrayList <InventoryItem> inventory = new ArrayList<InventoryItem>();
 
 //Is a dialogue box active?
 public static boolean dialogueActive = false;
@@ -59,6 +59,13 @@ public static Dialogue activeDialogue;
 
 void setup() {
   size(1000, 800);
+  
+  fill(#1a110c);
+  rect(0, 0, width, height);
+  textAlign(CENTER, CENTER);
+  fill(#624e30);
+  textSize(25);
+  text("LOADING...", width / 2, height / 2);
   
   chestUnlockSound = new SoundFile(this, "chest unlock.mp3");
   paperRipSound = new SoundFile(this, "paper rip.mp3");
