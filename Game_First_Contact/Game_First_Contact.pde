@@ -1,11 +1,5 @@
 import processing.sound.*;
 
-public static SoundFile mainTheme;
-public static SoundFile denied;
-public static SoundFile keypadPress;
-public static SoundFile accepted;
-public static SoundFile yeet;
-
 //create basement rooms
 public static SceneStart start;
 public static Scene activeScene;
@@ -24,6 +18,10 @@ public static Bedroom2 bedroom2;
 public static Diary diary;
 public static DiaryPage diaryPage;
 public static DoorLock doorLock;
+public static Camera1 camera1;
+public static Camera2 camera2;
+public static Teddy teddy;
+public static Book book;
 
 //create hallways
 public static Hallway1 hallway1;
@@ -36,6 +34,11 @@ public static Office1 office1;
 public static SoundFile chestUnlockSound;
 public static SoundFile paperRipSound;
 public static SoundFile clothSound;
+public static SoundFile mainTheme;
+public static SoundFile denied;
+public static SoundFile keypadPress;
+public static SoundFile accepted;
+public static SoundFile yeet;
 
 //create inventory
 public static boolean displayInventory;
@@ -93,7 +96,11 @@ void setup() {
   hallway1 = new Hallway1();
   hallway2 = new Hallway2();
   office1 = new Office1();
-  activeScene = start;
+  camera1 = new Camera1();
+  camera2 = new Camera2();
+  teddy = new Teddy();
+  book = new Book();
+  activeScene = camera2;//start;
   
   mainTheme.amp(0.3);
   mainTheme.loop();
@@ -280,6 +287,18 @@ public static void ChangeScene(String newScene) {
     break;
   case "Office 1":
     sceneToChangeTo = office1;
+    break;
+  case "Teddy":
+    sceneToChangeTo = teddy;
+    break;
+  case "Camera front":
+    sceneToChangeTo = camera1;
+    break;
+  case "Camera back":
+    sceneToChangeTo = camera2;
+    break;
+   case "Book":
+    sceneToChangeTo = book;
     break;
   }
 

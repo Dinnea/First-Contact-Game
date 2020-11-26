@@ -13,7 +13,7 @@ class Hallway1 extends Scene {
   public Hallway1() {
     super("Darkless_hallway.png", "Hallway", false);
     transitionAreas = new SceneTransitionArea[]{
-      new SceneTransitionArea("Hallway 2", width/2, height/2, 80, 80),
+      new SceneTransitionArea("Hallway 2", 0, 0, 1000, 800),
     };   
   }
   public void Draw() {
