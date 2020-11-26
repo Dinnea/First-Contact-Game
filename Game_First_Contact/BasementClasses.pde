@@ -4,7 +4,7 @@ class SceneBasement_1 extends Scene {
   private boolean firstEntrance = true;
 
   Dialogue enterSceneDialogue = new Dialogue(new String[]{
-    "P: The basement always looks vaguely the same.", 
+    "P: The basement always looks vaguely the same", 
     "P: Some things change, sometimes things are in a different place but there are things that never change, like the portrait on the wall for example!"
     });
 
@@ -54,13 +54,13 @@ class Chest extends Scene {
   public boolean sheetPresent = true;
   private boolean chestLocked = true;
 
-  InteractiveDialogue ChestSheetDialogue = new InteractiveDialogue(75, 167, 920, 532, 
+  InteractiveDialogue ChestSheetDialogue = new InteractiveDialogue(95, 167, 900, 532, 
     new Dialogue(new String[]{
     "I took off the white sheet, It's a chest", 
     "P: there was a chest in the corner of the room, but it was locked"
     }));
 
-  InteractiveDialogue chestClosedDialogue = new InteractiveDialogue(75, 167, 920, 532, 
+  InteractiveDialogue chestClosedDialogue = new InteractiveDialogue(95, 167, 900, 532, 
     new Dialogue(new String[]{
     "It seems to be locked"
     }));
@@ -204,9 +204,9 @@ class Portrait extends Scene {
     });
 
   private Dialogue picturesCorrectOrderDialogue = new Dialogue(new String[]{
-    "P: As I put the last piece in place the world warped before me, the portrait seemed to melt as the world spun.", 
-    "P: I looked back at the picture only to see my own reflection, and the key still floating in the middle of the painting.", 
-    "P: I felt the urge to grab it."
+    "P: As I put the last piece in place the world warped before me, the portrait seemed to melt as the world spun", 
+    "P: I looked back at the picture only to see my own reflection, and the key still floating in the middle of the painting", 
+    "P: I felt the urge to grab it"
     });
 
   private Dialogue pickUpKeyDialogue = new Dialogue(new String[]{
