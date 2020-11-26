@@ -32,7 +32,7 @@ class Closet extends Scene {
 class Bedroom1 extends Scene {
   private boolean firstEntrance = true;
    Dialogue inBedroom = new Dialogue(new String[]{
-    "- something will be said here -",
+    "- I ended up inside what resembled my childhood bedroom -",
     });
   public Bedroom1() {
     super("bedroom1.png", "Bedroom 1", false);
@@ -40,6 +40,7 @@ class Bedroom1 extends Scene {
       new SceneTransitionArea("Bedroom 2", width - 100, height - 100, 80, 80),
       new SceneTransitionArea("Door Lock", 360, 410, 70, 80),
       new SceneTransitionArea("Diary", 830, 410, 180, 10),
+      new SceneTransitionArea("Book", 957, 48, 27, 70)
     };  
      
   }
@@ -193,6 +194,26 @@ class DiaryPage extends Scene {
     super("Diary_reading.png", "Diary page", false);
     transitionAreas = new SceneTransitionArea[]{
       new SceneTransitionArea("Diary", width - 100, height - 100, 80, 80),
+      new SceneTransitionArea("Diary page 2", 350, 55, 390, 520)
+    };
+  }
+}
+class DiaryPage2 extends Scene {
+  public DiaryPage2() {
+    super("Diary_reading2.png", "Diary page 2", false);
+    transitionAreas = new SceneTransitionArea[]{
+      new SceneTransitionArea("Diary page", width - 100, height - 100, 80, 80),
+      new SceneTransitionArea("Diary page 3", 350, 55, 390, 520)
+    };
+  }
+}
+
+class DiaryPage3 extends Scene {
+  public DiaryPage3() {
+    super("Diary_reading3.png", "Diary page 3", false);
+    transitionAreas = new SceneTransitionArea[]{
+      new SceneTransitionArea("Diary page 2", width - 100, height - 100, 80, 80),
+      new SceneTransitionArea("Diary", 350, 55, 390, 520)
     };
   }
 }

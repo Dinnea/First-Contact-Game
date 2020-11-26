@@ -39,9 +39,9 @@ class Hallway2 extends Scene {
     });
   public Hallway2() {
     super("Dark_hallway.png", "Hallway 2", false);
-    //transitionAreas = new SceneTransitionArea[]{
-    //  new SceneTransitionArea("Hallway 2", width - 20, height - 100, 80, 80),
-    //};
+    transitionAreas = new SceneTransitionArea[]{
+      new SceneTransitionArea("Outside", 0, 0, 1000, 800),
+    };
     
     
   }
@@ -80,7 +80,10 @@ class Outside extends Scene {
     });
     
   public Outside(){
-    super("placeholder.png", "Outside", false);
+    super("outside.png", "Outside", false);
+        transitionAreas = new SceneTransitionArea[]{
+      new SceneTransitionArea("Office ", 0, 0, 1000, 800),
+    };
   }
   public void Draw() {
     //Check if it's the first time entering the room
@@ -96,4 +99,11 @@ class Outside extends Scene {
     super.Draw();
   }
   
+}
+
+class Credits extends Scene{
+  public Credits(){
+    super("Credits.png", "   ", false);
+
+  }
 }

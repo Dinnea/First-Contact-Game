@@ -17,6 +17,8 @@ public static Bedroom1 bedroom1;
 public static Bedroom2 bedroom2;
 public static Diary diary;
 public static DiaryPage diaryPage;
+public static DiaryPage2 diaryPage2;
+public static DiaryPage3 diaryPage3;
 public static DoorLock doorLock;
 public static Camera1 camera1;
 public static Camera2 camera2;
@@ -26,9 +28,12 @@ public static Book book;
 //create hallways
 public static Hallway1 hallway1;
 public static Hallway2 hallway2;
+public static Outside outside;
+public static Credits credits;
 
 //create offices
 public static Office1 office1;
+public static Office2 office2;
 
 //Create sound files
 public static SoundFile chestUnlockSound;
@@ -92,15 +97,20 @@ void setup() {
   bedroom2 = new Bedroom2();
   diary = new Diary();
   diaryPage = new DiaryPage();
+  diaryPage2 = new DiaryPage2();
+  diaryPage3 = new DiaryPage3();
   doorLock = new DoorLock();
   hallway1 = new Hallway1();
   hallway2 = new Hallway2();
   office1 = new Office1();
+  office2 = new Office2();
   camera1 = new Camera1();
   camera2 = new Camera2();
   teddy = new Teddy();
   book = new Book();
-  activeScene = camera2;//start;
+  outside = new Outside();
+  credits = new Credits();
+  activeScene = diaryPage;//start;
   
   mainTheme.amp(0.3);
   mainTheme.loop();
@@ -276,6 +286,12 @@ public static void ChangeScene(String newScene) {
   case "Diary page":
     sceneToChangeTo = diaryPage;
     break;
+  case "Diary page 2":
+    sceneToChangeTo = diaryPage2;
+    break;
+  case "Diary page 3":
+    sceneToChangeTo = diaryPage3;
+    break;
   case "Door Lock":
     sceneToChangeTo = doorLock;
     break;
@@ -297,8 +313,17 @@ public static void ChangeScene(String newScene) {
   case "Camera back":
     sceneToChangeTo = camera2;
     break;
-   case "Book":
+  case "Book":
     sceneToChangeTo = book;
+    break;
+  case "Outside":
+    sceneToChangeTo = outside;
+    break;
+  case "   ":
+    sceneToChangeTo = credits;
+    break;
+  case "Office ":
+    sceneToChangeTo = office2;
     break;
   }
 
