@@ -196,7 +196,7 @@ class Portrait extends Scene {
     "P: Yes, it's a portrait of my sister..", 
     "T: You sound surprised", 
     "P: She's been dead for years.\nMom said she got ill but I'm starting to question it..", 
-    "T: Interesting, please continue"
+    "T: Interesting. Please continue"
     });
 
   private Dialogue picturesWrongOrderDialogue = new Dialogue(new String[]{

@@ -2,7 +2,7 @@
 class Teddy extends Scene {
   boolean firstEntrance = true;
   Dialogue teddyDialogue = new Dialogue(new String[]{
-    "On the floor lay a teddybear, I used to carry him everywhere I went", 
+    "On the floor layed a teddybear, I used to carry him everywhere I went", 
     "T: Is there anything in particular you remember?", 
     "P: No, though he does look a bit bigger and cleaner than the last time I found him"
     });
@@ -12,6 +12,7 @@ class Teddy extends Scene {
       new SceneTransitionArea("Bedroom 2", width - 100, height - 100, 80, 80)
     };
   }
+  
   public void Draw() {
     //Draw the rest of the scene
     super.Draw();
