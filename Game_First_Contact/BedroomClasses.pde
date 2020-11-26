@@ -32,13 +32,15 @@ class Closet extends Scene {
 class Bedroom1 extends Scene {
   private boolean firstEntrance = true;
    Dialogue inBedroom = new Dialogue(new String[]{
-    "- something will be said here -",
+    "- I ended up inside what resembled my childhood bedroom -",
     });
   public Bedroom1() {
-    super("bedroom1.png", "Beedroom 1", false);
+    super("bedroom1.png", "Bedroom 1", false);
     transitionAreas = new SceneTransitionArea[]{
       new SceneTransitionArea("Bedroom 2", width - 100, height - 100, 80, 80),
-      new SceneTransitionArea("Door Lock", 380, 420, 50, 50)
+      new SceneTransitionArea("Door Lock", 360, 410, 70, 80),
+      new SceneTransitionArea("Diary", 830, 410, 180, 10),
+      new SceneTransitionArea("Book", 957, 48, 27, 70)
     };  
      
   }
@@ -61,13 +63,14 @@ class Bedroom1 extends Scene {
 class Bedroom2 extends Scene {
   
   public Bedroom2() {
-    super("bedroom2.png", "Beedroom 2", false);
+    super("bedroom2.png", "Bedroom 2", false);
     transitionAreas = new SceneTransitionArea[]{
       new SceneTransitionArea("Bedroom 1", 20, height - 100, 80, 80),
-      new SceneTransitionArea("Diary", width/2, height/2, 80, 80),
+      new SceneTransitionArea("Teddy", 280, 450, 200, 280),
+      new SceneTransitionArea("Camera front", 50, 315, 170, 75),
     };
     
-    InteractiveDialogue closetClickDialogue = new InteractiveDialogue(400, 0, 300 , 532, 
+    InteractiveDialogue closetClickDialogue = new InteractiveDialogue(395, 0, 315 , 470, 
     new Dialogue(new String[]{
     "- It's the closet I fell out of -"
     }));
@@ -93,15 +96,15 @@ class DoorLock extends Scene {
     
 
     buttons = new LockButton[]{
-      new LockButton(480, 520, 50, 50, 1),
-      new LockButton(530, 520, 50, 50, 2),
-      new LockButton(580, 520, 50, 50, 3),
-      new LockButton(480, 470, 50, 50, 4),
-      new LockButton(530, 470, 50, 50, 5),
-      new LockButton(580, 470, 50, 50, 6),
-      new LockButton(480, 420, 50, 50, 7),
-      new LockButton(530, 420, 50, 50, 8),
-      new LockButton(580, 420, 50, 50, 9)
+      new LockButton(435, 605, 50, 33, 1),
+      new LockButton(490, 605, 60, 33, 2),
+      new LockButton(550, 605, 50, 33, 3),
+      new LockButton(435, 640, 50, 35, 4),
+      new LockButton(488, 640, 60, 35, 5),
+      new LockButton(550, 640, 50, 35, 6),
+      new LockButton(435, 680, 50, 33, 7),
+      new LockButton(488, 680, 60, 33, 8),
+      new LockButton(550, 680, 50, 33, 9)
     };  
     }
     
@@ -155,7 +158,7 @@ class DoorLock extends Scene {
               isSaved3 = true;
               if ((saved1 == correct1) && (saved2 == correct2) && (saved3 == correct3)){
                 transitionAreas = new SceneTransitionArea[]{
-                   new SceneTransitionArea("Hallway", 500, 300, 80, 80),
+                   new SceneTransitionArea("Hallway", 0, 0, 1000, 800),
                 };
                 accepted.play();
               }
@@ -179,7 +182,7 @@ class Diary extends Scene {
   public Diary() {
     super("Diary.png", "Diary", false);
     transitionAreas = new SceneTransitionArea[]{
-      new SceneTransitionArea("Bedroom 2", width - 100, height - 100, 80, 80),
+      new SceneTransitionArea("Bedroom 1", width - 100, height - 100, 80, 80),
       new SceneTransitionArea("Diary page", width/2, 450, 300, 250)
     };
   }
@@ -191,6 +194,26 @@ class DiaryPage extends Scene {
     super("Diary_reading.png", "Diary page", false);
     transitionAreas = new SceneTransitionArea[]{
       new SceneTransitionArea("Diary", width - 100, height - 100, 80, 80),
+      new SceneTransitionArea("Diary page 2", 350, 55, 390, 520)
+    };
+  }
+}
+class DiaryPage2 extends Scene {
+  public DiaryPage2() {
+    super("Diary_reading2.png", "Diary page 2", false);
+    transitionAreas = new SceneTransitionArea[]{
+      new SceneTransitionArea("Diary page", width - 100, height - 100, 80, 80),
+      new SceneTransitionArea("Diary page 3", 350, 55, 390, 520)
+    };
+  }
+}
+
+class DiaryPage3 extends Scene {
+  public DiaryPage3() {
+    super("Diary_reading3.png", "Diary page 3", false);
+    transitionAreas = new SceneTransitionArea[]{
+      new SceneTransitionArea("Diary page 2", width - 100, height - 100, 80, 80),
+      new SceneTransitionArea("Diary", 350, 55, 390, 520)
     };
   }
 }
