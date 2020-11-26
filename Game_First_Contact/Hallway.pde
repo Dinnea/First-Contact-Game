@@ -35,7 +35,7 @@ class Hallway1 extends Scene {
 class Hallway2 extends Scene {
   private boolean firstEntrance = true;
    Dialogue hallway2Dialogue = new Dialogue(new String[]{
-    "I fastened my pace, I would say I ran but I think I was too afraid of tripping, of stepping into a trap somewhere hiding in the darkness. My hand eventually reached out for the doornob and the door opened"
+    "P: I fastened my pace, I would say I ran but I think I was too afraid of tripping, of stepping into a trap somewhere hiding in the darkness. My hand eventually reached out for the doornob and the door opened"
     });
   public Hallway2() {
     super("Hallway.png", "Hallway 2", false);
@@ -64,14 +64,14 @@ class Outside extends Scene {
   private boolean firstEntrance = true;
   
   Dialogue outsideDialogue = new Dialogue(new String[]{
-    "I stepped outside, a rush of wind hitting my face as my eyes adjusted to the brightness of day",
+    "P: I stepped outside, a rush of wind hitting my face as my eyes adjusted to the brightness of day",
     "P: I had made it outside, it hardly dawned on me that I had no clue where I was, let alone the grave I was standing in front of",
-    "my heart beat rapidly before I regained composure, breathing out a breath I did not know I was holding",
+    "P: My heart beat rapidly before I regained composure, breathing out a breath I did not know I was holding",
     "T: Can you continue about the grave?",
     "P: Yes, of course",
     "P: I stood in front of a grave, I seemed to be in the middle of a forest, the grave was surrounded by trees",
     "P: The headstone read...",
-    "Here lies, Olivia, twin sister and beloved daugther. May she rest in Peace",
+    "P: Here lies, Olivia, twin sister and beloved daugther. May she rest in Peace",
     "P: The date was scratched out",
     "P: I stared at it for a while, a numbing sadness washing over me, grounding my feet in place",
     "T: Does anything happen afterwards?",

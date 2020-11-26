@@ -2,7 +2,7 @@
 class Teddy extends Scene {
   boolean firstEntrance = true;
   Dialogue teddyDialogue = new Dialogue(new String[]{
-    "On the floor layed a teddybear, I used to carry him everywhere I went", 
+    "P: On the floor layed a teddybear, I used to carry him everywhere I went", 
     "T: Is there anything in particular you remember?", 
     "P: No, though he does look a bit bigger and cleaner than the last time I found him"
     });
