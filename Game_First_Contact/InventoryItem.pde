@@ -7,7 +7,7 @@ class InventoryItem {
     //objectFileA = objectFile;
     objectImage = loadImage(objectFile);
     inventoryImage = loadImage(objectFile);
-    inventoryImage.resize(50, 50);
+    inventoryImage.resize(67, 63);
     itemName = newName;
   }
 }

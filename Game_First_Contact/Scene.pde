@@ -1,4 +1,4 @@
-class Scene { // mostly code made by Dylan //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
+class Scene { // mostly code made by Dylan //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
 
   //scene info
 
@@ -44,7 +44,7 @@ class Scene { // mostly code made by Dylan //<>// //<>// //<>// //<>// //<>// //
       //For every Transition Area...
       for (int i = 0; i < transitionAreas.length; i++) {
         //Draw a rect overlay.
-        rect(transitionAreas[i].x, transitionAreas[i].y, transitionAreas[i].areaWidth, transitionAreas[i].areaHeight);
+        //rect(transitionAreas[i].x, transitionAreas[i].y, transitionAreas[i].areaWidth, transitionAreas[i].areaHeight);
       }
     }
 
@@ -55,7 +55,7 @@ class Scene { // mostly code made by Dylan //<>// //<>// //<>// //<>// //<>// //
       //For every dialogue object
       for (int i = 0; i < dialogueObjects.length; i++) {
         //Draw a rect overlay
-        rect(dialogueObjects[i].x, dialogueObjects[i].y, dialogueObjects[i].areaWidth, dialogueObjects[i].areaHeight);
+        //rect(dialogueObjects[i].x, dialogueObjects[i].y, dialogueObjects[i].areaWidth, dialogueObjects[i].areaHeight);
       }
     }
     
@@ -66,7 +66,7 @@ class Scene { // mostly code made by Dylan //<>// //<>// //<>// //<>// //<>// //
       //For every dialogue object
       for (int i = 0; i < buttons.length; i++) {
         //Draw a rect overlay
-        rect(buttons[i].x, buttons[i].y, buttons[i].w, buttons[i].h);
+        //rect(buttons[i].x, buttons[i].y, buttons[i].w, buttons[i].h);
       }
     }
 

@@ -11,8 +11,6 @@ public static SceneStart start;
 public static Scene activeScene;
 public static SceneBasement_1 basement_1;
 public static SceneBasement_2 basement_2;
-public static Bookshelf_Top bookshelfTop;
-public static Bookshelf_Bot bookshelfBot;
 public static Chest chest;
 public static Portrait portrait;
 public static Album album;
@@ -37,9 +35,13 @@ public static SoundFile chestUnlockSound;
 public static SoundFile paperRipSound;
 public static SoundFile clothSound;
 
+//Create font
+PFont font;
+
 //create inventory
 public static boolean displayInventory;
 public static InventoryItem selectedItem;
+public static PImage inventoryImage;
 
 public static ArrayList <InventoryItem> inventory = new ArrayList<InventoryItem>();
 
@@ -50,23 +52,36 @@ private static boolean fadingOut;
 private static float sceneTransitionSpeed = 15;
 private static int sceneDarkness = 0;
 
-//Is a dialogue box active?
+public static PImage arrowBackImage;
+public static PImage arrowRightImage;
+public static PImage arrowLeftImage;
+
+//Dialogue stuff
 public static boolean dialogueActive = false;
-//Dialogue to play
 public static Dialogue activeDialogue;
-
-
+public static PImage dialogueBoxImage;
+public static PImage nameBoxImage;
 
 void setup() {
   size(1000, 800);
-  
+
   fill(#1a110c);
   rect(0, 0, width, height);
   textAlign(CENTER, CENTER);
   fill(#624e30);
   textSize(25);
   text("LOADING...", width / 2, height / 2);
-  
+
+  font = createFont("OptimusPrincepsSemiBold.ttf", 1);
+  textFont(font);
+
+  dialogueBoxImage = loadImage("dialogue box.png");
+  nameBoxImage = loadImage("name box.png");
+  inventoryImage = loadImage("inventory.png");
+  arrowBackImage = loadImage("arrow back.png");
+  arrowRightImage = loadImage("arrow right.png");
+  arrowLeftImage = loadImage("arrow left.png");
+
   chestUnlockSound = new SoundFile(this, "chest unlock.mp3");
   paperRipSound = new SoundFile(this, "paper rip.mp3");
   clothSound = new SoundFile(this, "cloth.mp3");
@@ -75,12 +90,10 @@ void setup() {
   keypadPress = new SoundFile(this, "keypad_press.mp3");
   accepted = new SoundFile(this, "keypad_granted.mp3");
   yeet = new SoundFile(this, "yeet.mp3");
-  
+
   start = new SceneStart();
   basement_1 = new SceneBasement_1();
   basement_2 = new SceneBasement_2();
-  bookshelfTop = new Bookshelf_Top();
-  bookshelfBot = new Bookshelf_Bot();
   chest = new Chest();
   portrait = new Portrait();
   album = new Album();
@@ -94,7 +107,7 @@ void setup() {
   hallway2 = new Hallway2();
   office1 = new Office1();
   activeScene = start;
-  
+
   mainTheme.amp(0.3);
   mainTheme.loop();
 }
@@ -122,6 +135,8 @@ void draw() {
 
         //Change the scene
         activeScene = sceneToChangeTo;
+
+        displayInventory = activeScene.allowInventory;
       }
     } //Else if not fading out
     else {
@@ -149,12 +164,12 @@ void draw() {
       //Check for mouse hover in the scene
       activeScene.MouseHover();
     }
+  }
 
-    //display the inventory
+  //display the inventory
 
-    if (displayInventory) {
-      inventoryDisplay();
-    }
+  if (displayInventory) {
+    inventoryDisplay();
   }
 
   //Draw a coloured rectangle based on scene Opacity
@@ -201,10 +216,7 @@ void mousePressed() {
       for (int i = 0; i<inventory.size(); i++) {
         //mouse hovers over?
         if (CheckPointOnBoxCollision(mouseX, mouseY, 
-          13, 
-          230+(95*i), 
-          50, 
-          50)) {
+          21, 190+(100*i), 67, 63)) {
           // if yes, change cursor
           selectedItem = inventory.get(i);
 
@@ -235,12 +247,6 @@ public static void ChangeScene(String newScene) {
     break;
   case "Basement 2":
     sceneToChangeTo = basement_2;
-    break;
-  case "Bookshelf Top":
-    sceneToChangeTo = bookshelfTop;
-    break;
-  case "Bookshelf Bottom":
-    sceneToChangeTo = bookshelfBot;
     break;
   case "Chest":
     sceneToChangeTo = chest;
@@ -282,31 +288,30 @@ public static void ChangeScene(String newScene) {
     sceneToChangeTo = office1;
     break;
   }
-
-  displayInventory = sceneToChangeTo.allowInventory;
 }
 
 void inventoryDisplay() {
-  fill(255, 255, 0);
-  rect(0, 200, 75, height - 400);
+  //fill(255, 255, 0);
+  //rect(0, 200, 75, height - 400);
+
+  image(inventoryImage, 0, 0);
 
   //show items
   for (int i = 0; i<inventory.size(); i++) {
     if (selectedItem != null && inventory.get(i) == selectedItem) {
-      fill(255, 0, 0);
-      rect(10, 227+(95*i), 56, 56);
+      tint(#ff8080);
     }
-    image(inventory.get(i).inventoryImage, 13, 230+(95*i), 50, 50);
+    
+    image(inventory.get(i).inventoryImage, 21, 190+(100*i), 67, 63);
+    
+    tint(255, 255, 255);
   }
 
   if (inventory != null) {
     for (int i = 0; i<inventory.size(); i++) {
       //mouse hovers over && not dragging an item?
       if (CheckPointOnBoxCollision(mouseX, mouseY, 
-        13, 
-        230+(95*i), 
-        50, 
-        50)) {
+        21, 190+(100*i), 67, 63)) {
         // if yes, change cursor and stop checking
         cursor(HAND);
         return;

@@ -13,11 +13,27 @@ class Dialogue {
 
   public void Draw() {
     //Draw the dialogue box
-    fill(255, 0, 255, 200);
-    rect(0, height - 150, width, 150);
+    image(dialogueBoxImage, 0, 0);
+    //rect(0, height - 150, width, 150);
     fill(255, 255, 255);
-    textAlign(CENTER, TOP);
-    text(dialogueLines[currentDialogueLine], 100, height - 125, width - 200, 125);
+    textAlign(CENTER, CENTER);
+    textSize(20);
+
+    String characterName = "";
+    String dialogueContent = dialogueLines[currentDialogueLine];
+    
+    if (dialogueContent.substring(0, 3).equals("P: ")) {
+      dialogueContent = dialogueContent.substring(3);
+      characterName = "Veronica";
+      image(nameBoxImage, 0, 0);
+    } else if (dialogueContent.substring(0, 3).equals("T: ")) {
+      dialogueContent = dialogueContent.substring(3);
+      characterName = "Therapist";
+      image(nameBoxImage, 0, 0);
+    }
+    
+    text(characterName, 215, height - 187, 190, 30);
+    text(dialogueContent, 200, height - 137, width - 400, 137);
   }
 
   public void MouseClicked() {
