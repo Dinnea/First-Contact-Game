@@ -72,6 +72,7 @@ public static PImage nameBoxImage;
 
 void setup() {
   size(1000, 800);
+  surface.setTitle("Shattered Past");
 
   fill(#1a110c);
   rect(0, 0, width, height);
