@@ -88,7 +88,7 @@ class Bedroom2 extends Scene {
 class DoorLock extends Scene {
   private boolean firstEntrance = true;
   Dialogue nearLockDialogue = new Dialogue(new String[]{
-    "- The door is locked, it seems I need a 3 digit code... -"
+    "The door is locked, it seems I need a 3 digit code..."
     });
   public DoorLock() {
     super("Door_lock.png", "Door Lock", false);
